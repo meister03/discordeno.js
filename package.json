@@ -1,0 +1,34 @@
+{
+  "name": "discordeno.js",
+  "version": "0.0.1",
+  "description": "A wrapper around Discordeno that comes with a Djs-like interface and a lot of other features.",
+  "main": "index.js",
+  "types": "./typings.d.ts",
+  "dependencies": {
+    "discordeno": "^13.0.0-rc26"
+  },
+  "script": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meister03/discordeno.js.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "discord",
+    "discord.js",
+    "deno",
+    "discordeno",
+    "custom property caching",
+    "raw cache storage",
+    "framework"
+  ],
+  "author": "meister03",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/meister03/discordeno.js/issues"
+  },
+  "homepage": "https://github.com/meister03/discordeno.js/#readme"
+}
