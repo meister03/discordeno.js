@@ -5,7 +5,7 @@ const {transformOptions} = require("../Util/transformOptions");
 
 class Member extends DestructObject {
   /** 
-  * @param {import('discordeno').Bot} client
+  * @param {import('../typings/Managers/CacheManager').Client client
   */
   constructor(client, member = {}, options = {}) {
     super(member, { "permissions": true });

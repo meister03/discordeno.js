@@ -8,7 +8,7 @@ const {separateOverwrites} = require("../Util/Util");
 
 class Channel extends DestructObject {
   /** 
-  * @param {import('discordeno').Bot} client
+  * @param {import('../typings/Managers/CacheManager').Client} client
   */
   constructor(client, channel = {}, options = {}) {
     super(channel, { "permissionOverwrites": true });

@@ -5,7 +5,7 @@ const {SnowFlake} = require("../Util/Util");
 
 class Guild extends DestructObject {
   /** 
-  * @param {import('discordeno').Bot} client
+  * @param {import('../typings/Managers/CacheManager').Client} client
   */
   constructor(client, guild = {}, options = {}) {
     super(guild);

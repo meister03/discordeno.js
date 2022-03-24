@@ -3,6 +3,9 @@ const Collection = require("../Structures/Collection");
 const { transformOptions } = require("../Util/transformOptions");
 
 class MessageManager {
+  /** 
+    * @param {import('../typings/Managers/CacheManager').Client} client
+    */
   constructor(client, data = {}, options = {}) {
     this.client = client;
     if (options.guild) this.guild = options.guild;

@@ -1,11 +1,12 @@
+//@ts-check
 const Channel = require("../Structures/Channel");
 const Collection = require("../Structures/Collection");
-const {transformOptions} = require("../Util/transformOptions");
+const { transformOptions } = require("../Util/transformOptions");
 
 class ChannelManager {
   /** 
-  * @param {import('discordeno').Bot} client
-  */
+    * @param {import('../typings/Managers/CacheManager').Client} client
+    */
   constructor(client, data = {}, options = {}) {
     this.client = client;
     this.cache = options.channels || new Collection();
@@ -14,40 +15,42 @@ class ChannelManager {
   }
 
   async create(options = {}, reason) {
-    if(!options.guildId) options.guildId = this.guild?.id;
+    if (!options.guildId) options.guildId = this.guild?.id;
     return new Channel(this.client, options).create(options, reason);
   }
 
   async edit(options = {}, reason) {
-    if(!options.guildId) options.guildId = this.guild?.id;
-    return this.forge(options, {guild: this.guild}).edit(options, reason);
+    if (!options.guildId) options.guildId = this.guild?.id;
+    return this.forge(options, { guild: this.guild }).edit(options, reason);
   }
 
   async delete(options = {}) {
     options = transformOptions(options);
-    return new Channel(this.client, {id: options.id}).delete(options.reason);
+    return new Channel(this.client, { id: options.id }).delete(options.reason);
   }
 
-  async fetch(options = {}){
+  async fetch(options = {}) {
     options = transformOptions(options);
-  
+
     const guildId = options.guildId || this.guild?.id;
     const channelId = options.id;
-  
-    
-    if(!channelId){
+
+
+    if (!channelId) {
       const rawChannels = await this.client.helpers.getChannels(guildId);
       const channels = new Collection();
-      for(const channel of rawChannels){
-        channels.set(channel.id, this.forge(channel, {guild: this.guild}));
+      for (const channel of rawChannels) {
+        channels.set(channel[0], this.forge(channel[1], { guild: this.guild }));
       }
       return channels;
     }
 
-    if (this.cache?.has(channelId)) return this.cache.get(channelId, { guild: this.guild });
+    if (this.cache?.has(channelId)) {
+      return this.cache.get(channelId, { guild: this.guild });
+    }
     const channel = await this.client.helpers.getChannel(channelId);
 
-    return this.forge(channel, {guild: this})
+    return this.forge(channel, { guild: this })
   }
 
   forge(data = {}, options = {}) {

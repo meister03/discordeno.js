@@ -1,3 +1,4 @@
+//@ts-check
 // Managers
 const GuildManager = require("./GuildManager");
 const ChannelManager = require("./ChannelManager");
@@ -24,9 +25,13 @@ const Member = require("../Structures/Member");
 const Actions = require("./Actions");
 
 class CacheManager {
-  // : import('discordeno').Bot
+  /**
+ * Overwrites Handler in order to allow caching, when events are fired or ressources have been received.
+ * @param {import('../typings/Managers/CacheManager').Client} bot The Discord Client created with .createBot()
+ * @return {import('../typings/Managers/CacheManager').Client} client client with overwritten handlers
+ */
   static overwriteHandlers(bot) {
-    const { guild, user, member, channel, message, role, emoji , embed} = bot.transformers;
+    const { guild, user, member, channel, message, role, emoji, embed } = bot.transformers;
     const { handleDiscordPayload } = bot.gateway;
 
     bot.gateway.handleDiscordPayload = function (_bot, packet, shardId) {
@@ -61,7 +66,8 @@ class CacheManager {
     };
 
     bot.transformers.channel = function (_, payload) {
-      const guild = bot.guilds.cache.base({ id: payload.guild_id });
+      const guildId = payload.guildId ?? payload.channel.guild_id;
+      const guild = bot.guilds.cache.base({ id: guildId });
       const result = channel(bot, payload);
       guild.channels = [result];
       bot.guilds.cache.patch(guild.id, guild);
@@ -71,30 +77,29 @@ class CacheManager {
     bot.transformers.message = function (_, payload) {
       const channel = bot.channels.cache.base({ id: payload.channel_id });
       const result = message(bot, payload);
-  
+
       channel.messages = [result];
 
-      ///console.log(channel.messages)
       bot.channels.cache.patch(channel.id, channel);
 
-      if(!result.author) {
+      if (!result.author) {
         const author = {
           id: payload.author.id,
           username: payload.author.username,
           discriminator: String(payload.author.discriminator),
           avatar: payload.author.avatar ? payload.author.avatar : undefined,
-          bot: payload.author.bot, 
+          bot: payload.author.bot,
           flags: payload.author.flags,
           public_flags: payload.author.public_flags,
         }
         result.author = bot.transformers.user(bot, author);
       }
 
-      if(payload.member){
+      if (payload.member) {
         bot.transformers.member(bot, payload.member, BigInt(payload.guild_id), BigInt(payload.author.id));
       }
 
-      if(!result.mentionUsers){
+      if (payload.mentions) {
         result.mentionedUsers = payload.mentions?.map((x) => bot.transformers.user(bot, x));
       }
 
@@ -102,7 +107,8 @@ class CacheManager {
     };
 
     bot.transformers.role = function (_, payload) {
-      const guild = bot.guilds.cache.base({ id: payload.guild_id });
+      const guildId = payload.guildId ?? payload.role?.guild_id;
+      const guild = bot.guilds.cache.base({ id: guildId });
       const result = role(bot, payload);
       guild.roles = [result];
       bot.guilds.cache.patch(guild.id, guild);
@@ -118,7 +124,7 @@ class CacheManager {
       const guild = bot.guilds.cache.base({ id: guildId });
       guild.members = [result];
       bot.guilds.cache.patch(guild.id, guild);
-      if(payload.user) {
+      if (payload.user) {
         result.user = bot.transformers.user(bot, payload.user);
       }
       return result;
@@ -132,7 +138,7 @@ class CacheManager {
 
     bot.transformers.embed = function (_, payload) {
       const result = embed(bot, payload);
-      if(!result.fields) {
+      if (!result.fields) {
         result.fields = [];
       }
       return result;
@@ -141,7 +147,41 @@ class CacheManager {
     return bot;
   }
 
+  /** 
+  * @typedef {{properties?: Array[], maxSize?: number, transformerClass?:any, sweepFilter?: Function}} CacheOptions
+  * @typedef {{channels?: CacheOptions, guilds?: CacheOptions, users?: CacheOptions, roles?: CacheOptions, emojis?: CacheOptions, messages?: CacheOptions, members?: CacheOptions}} PluginOptions
+  */
+  /**
+  * Overwrites the Handler and configures settings for the CacheManager
+  * @param {import('../typings/Managers/CacheManager').Client} client The Discord Client created with .createBot()
+  * @param {PluginOptions} options The options for the CacheManager
+  * @property {CacheOptions} options.channels The options for the channel cache manager
+  * @property {CacheOptions} options.guilds The options for the guild cache manager
+  * @property {CacheOptions} options.members The options for the member cache manager
+  * @property {CacheOptions} options.messages The options for the message cache manager
+  * @property {CacheOptions} options.roles The options for the role cache manager
+  * @property {CacheOptions} options.users The options for the user cache manager
+  * @return {CacheManager.overwriteHandlers} client with cache handlers
+  * @example
+  *  const client = enableCachePlugin(client, {
+  *        channels: {
+  *             properties: ['guildId', 'id'],
+  *             maxSize: 100,
+  *             sweepFilter: (channel) => channel.type !== 'text';
+  *         }
+  *         guilds: {},
+  *         roles: {},
+  *         users: {},
+  *         messages: {},
+  *         members: {},
+  *          emojis: {},
+  *   })
+  *     
+  */
+
+
   static enableCachePlugin(client, options = {}) {
+    
     const channelOptions = createOptions(client, options.channels, Channel, "channel");
     client.channels = new ChannelManager(client);
     client.channels.cache = new Collection(channelOptions);

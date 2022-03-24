@@ -2,8 +2,12 @@ const Guild = require("../Structures/Guild");
 const {transformOptions} = require("../Util/transformOptions");
 
 class Guilds {
+  /** 
+    * @param {import('../typings/Managers/CacheManager').Client} client
+    */
   constructor(client, data = {}, options = {}) {
     this.client = client;
+    this.cache = options.cache;
   }
   forge(data = {}) {
     data = transformOptions(data);

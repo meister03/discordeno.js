@@ -19,7 +19,7 @@ const Constants = {
 }
 class Interaction extends DestructObject {
     /** 
-    * @param {import('discordeno').Bot} client
+    * @param {import('../typings/Managers/CacheManager').Client} client
     */
     constructor(client, interaction = {}) {
         super(interaction);

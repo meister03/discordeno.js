@@ -1,10 +1,11 @@
+// @ts-check
 const Emoji = require("../Structures/Emoji");
 const Collection = require("../Structures/Collection");
 const {transformOptions} = require("../Util/transformOptions");
 class Emojis {
   /** 
-  * @param {import('discordeno').Bot} client
-  */
+    * @param {import('../typings/Managers/CacheManager').Client} client
+    */
   constructor(client, data = {}, options = {}) {
     this.client = client;
     this.cache = options.emojis || new Collection();

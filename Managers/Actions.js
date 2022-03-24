@@ -1,4 +1,6 @@
-const Collection = require('../Structures/Collection')
+const Collection = require('../Structures/Collection');
+
+
 function GUILD_LOADED_DD(bot, packet, shardId) {
   return; //no op
   return bot.transformers.guild(bot, { guild: packet.d }, shardId);
@@ -12,6 +14,14 @@ function GUILD_UPDATE(bot, packet, shardId) {
   return bot.guilds.cache.patch(guild.id, guild);
 }
 
+/**
+ * This is a function.
+ *
+ * @param {string} n - A string param
+ * @param {string} [o] - A optional string param
+ * @param {string} [d=DefaultValue] - A optional string param
+ * @return {string} A good string
+ */
 function GUILD_DELETE(bot, packet, shardId) {
   const guild = bot.guilds.cache._get(packet.d.id);
   if (!guild) return;

@@ -3,8 +3,8 @@ const Collection = require("../Structures/Collection");
 const {transformOptions} = require("../Util/transformOptions");
 class RoleManager {
   /** 
-  * @param {import('discordeno').Bot} client
-  */
+    * @param {import('../typings/Managers/CacheManager').Client} client
+    */
   constructor(client, data = {}, options = {}) {
     this.client = client;
     if (options.member) this.member = options.member;

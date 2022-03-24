@@ -4,7 +4,7 @@ const { convertColor } = require("../Util/Util");
 
 class Role extends DestructObject {
   /** 
- * @param {import('discordeno').Bot} client
+ * @param {import('../typings/Managers/CacheManager').Client} client
  */
   constructor(client, role = {}, options = {}) {
     super(role, { "permissions": true });

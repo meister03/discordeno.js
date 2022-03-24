@@ -4,7 +4,7 @@ const Collection = require("./Collection");
 
 class permissionOverwrites extends DestructObject {
     /** 
-    * @param {import('discordeno').Bot} client
+    * @param {import('../typings/Managers/CacheManager').Client} client
     */
     constructor(client, data = {}, options = {}) {
         super(data);
