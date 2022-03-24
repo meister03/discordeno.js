@@ -5,7 +5,7 @@
 
 Discordeno.js is a wrapper around a very scalable library named [Discordeno](https://github.com/discordeno/discordeno), which brings up a djs-like interface but also includes the core Features (Cross Ratelimit, Zero Downtime Restart, Resharding...).
 
-**__Why should I change?__**
+### __Why should I change?__
 **Djs was always meant for beginners**. They way how it is built, it's not very scalable. Moreover it is bloated up with a lot of nested classes and references.
 
 It is very noticeable that there are **many breaking changes by djs**. Each version has changes, most of which are very unnecessary.
@@ -14,7 +14,7 @@ Also, it's a fact that **updates take a long time**, you can't use new features,
 
 As example the v13 Modal PR isn't merged yet and its already 1 month, where as discordeno.js had it on the beginning date of the launch.
 
-**__A migration would require breaking changes too?__**
+### __A migration would require breaking changes too?__
 We built the interface so that it can be used to **switch between different libraries** with very minor changes on Discordeno's side. This allows us to introduce support for other libraries, such as the Raw API
 
 Of course, a migration would include breaking changes, as we decided to improve the coding experience by simplifying it while incorporating high coding standards
