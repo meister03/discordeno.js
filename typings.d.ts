@@ -4,5 +4,6 @@ import {ChannelManager} from './typings/Managers/ChannelManager';
 export {
       ChannelManager,
       CacheManager,
+      startBot,
       Client,
 };

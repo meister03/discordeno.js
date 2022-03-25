@@ -20,6 +20,8 @@ import {
 
 
     GatewayManager,
+
+    startBot,
 } from "discordeno";
 
 import ChannelManager from "../../Managers/ChannelManager";
@@ -30,6 +32,10 @@ import GuildManager from "../../Managers/GuildManager";
 import MessageManager from "../../Managers/MessageManager";
 import EmojiManager from "../../Managers/EmojiManager";
 import InteractionManager from "../../Managers/InteractionManager";
+
+export interface startBot {
+    (bot: Client): Client;
+}
 
 export class CacheManager {
     public static overwriteHandlers: overwritesHandler;
