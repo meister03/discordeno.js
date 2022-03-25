@@ -1,3 +1,4 @@
+// @ts-check
 class Options {
   constructor(components) {
     this.components = components;

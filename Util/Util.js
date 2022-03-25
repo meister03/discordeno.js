@@ -1,3 +1,4 @@
+// @ts-check
 const Mask = (1n << 64n) - 1n;
 const {Colors, DISCORD_EPOCH} = require('./Constants');
 

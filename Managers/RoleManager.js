@@ -1,3 +1,4 @@
+// @ts-check
 const Role = require("../Structures/Role");
 const Collection = require("../Structures/Collection");
 const {transformOptions} = require("../Util/transformOptions");
@@ -30,7 +31,7 @@ class RoleManager {
     const rawRoles = await this.client.helpers.getRoles(guildId);
     const roles = new Collection();
     for (const role of rawRoles) {
-      roles.set(role.id, this.forge(role, { guild: this.guild }));
+      roles.set(role[0], this.forge(role[1], { guild: this.guild }));
     }
     
     return roleId ? roles.get(roleId) : roles;
@@ -56,7 +57,7 @@ class RoleManager {
     const guildId = (this.guild ? this.guild.id : options.guildId);
     const memberId = (this.member ? this.member.id : options.memberId);
     const op = await this.client.helpers.addRole(guildId, memberId, roleId, reason);
-    return op ?? true;
+    return true;
   }
 
   async remove(options = {}, reason) {
@@ -66,7 +67,7 @@ class RoleManager {
     const guildId = (this.guild ? this.guild.id : options.guildId);
     const memberId = (this.member ? this.member.id : options.memberId);
     const op = await this.client.helpers.removeRole(guildId, memberId, roleId, reason);
-    return op ?? true;
+    return true;
   }
 
   forgeManager(data = {}, options = {}) {

@@ -1,3 +1,4 @@
+// @ts-check
 const Message = require("../Structures/Message");
 const Collection = require("../Structures/Collection");
 const { transformOptions } = require("../Util/transformOptions");

@@ -1,3 +1,4 @@
+// @ts-check
 class WebSocket {
     constructor(gateway) {
         this.shards = gateway.shards;

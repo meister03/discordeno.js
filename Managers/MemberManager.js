@@ -1,3 +1,4 @@
+// @ts-check
 const Member = require("../Structures/Member");
 const Collection = require("../Structures/Collection");
 const {transformOptions} = require("../Util/transformOptions");
@@ -37,14 +38,13 @@ class Members {
       const rawMembers = await this.client.helpers.getMembers(guildId, options);
       const members = new Collection();
       for(const member of rawMembers){
-        members.set(member.id, this.forge(member, {guild: this.guild}));
+        members.set(member[0], this.forge(member[1], {guild: this.guild}));
       }
       return members;
     }
 
     if (this.cache?.has(memberId)) return this.forge(memberId, { guild: this.guild });
     const member = await this.client.helpers.getMember(guildId, memberId);
-    console.log(member)
     return this.forge(member, { guild: this.guild, user: member.user });
   }
 

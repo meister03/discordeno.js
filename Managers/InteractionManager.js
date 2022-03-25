@@ -1,3 +1,4 @@
+// @ts-check
 const Interaction = require("../Structures/Interaction");
 const Collection = require("../Structures/Collection");
 const {transformOptions} = require("../Util/transformOptions");

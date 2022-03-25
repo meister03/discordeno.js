@@ -1,3 +1,4 @@
+// @ts-check
 const DestructObject = require("./DestructObject");
 const Permissions = require("./Permissions");
 const { convertColor } = require("../Util/Util");

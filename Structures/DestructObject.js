@@ -1,3 +1,4 @@
+// @ts-check
 class DestructObject {
   constructor(message = {}, removeFields = {}) {
     this._raw = message;

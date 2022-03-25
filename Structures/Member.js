@@ -1,3 +1,4 @@
+// @ts-check
 const DestructObject = require("./DestructObject");
 const Permissions = require("./Permissions");
 const Collection = require("./Collection");
@@ -40,8 +41,8 @@ class Member extends DestructObject {
 
   get manageable(){
     if (this.id === this.guild.ownerId) return false;
-    if (this.id === this.client.userId) return false;
-    if (this.client.userId === this.guild.ownerId) return true;
+    if (this.id === this.client.id) return false;
+    if (this.client.id === this.guild.ownerId) return true;
     return new Boolean(this.guild.me.roles.highest > this.roles.highest);
   }
 

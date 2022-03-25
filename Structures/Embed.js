@@ -1,4 +1,4 @@
-// @todo add color support, and .toJSON() on Embed
+// @ts-check
 
 const {convertColor} = require('../Util/Util');
 
@@ -72,7 +72,7 @@ class Embed {
   }
 
   addFields(...fields) {
-    this.fields.push(...this.constructor.flatFields(fields));
+    this.fields.push(...Embed.flatFields(fields));
     return this;
   }
 

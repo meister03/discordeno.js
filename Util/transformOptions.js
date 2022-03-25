@@ -1,3 +1,4 @@
+// @ts-check
 const Permissions = require('../Structures/Permissions');
 const { permissionOverwritesTypes } = require('../Util/Constants');
 const { Blob } = require('buffer');

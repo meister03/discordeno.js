@@ -1,4 +1,4 @@
-//@ts-check
+// @ts-check
 const Channel = require("../Structures/Channel");
 const Collection = require("../Structures/Collection");
 const { transformOptions } = require("../Util/transformOptions");

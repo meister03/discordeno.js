@@ -1,3 +1,4 @@
+// @ts-check
 const DestructObject = require("./DestructObject");
 const {transformOptions, transformPermissionOverwrites} = require("../Util/transformOptions");
 const Collection = require("./Collection");

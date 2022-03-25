@@ -1,3 +1,4 @@
+// @ts-check
 const DestructObject = require("./DestructObject");
 const { transformOptions, transformAttachments } = require("../Util/transformOptions");
 

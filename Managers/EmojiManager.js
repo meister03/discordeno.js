@@ -38,13 +38,13 @@ class Emojis {
       const rawEmojis = await this.client.helpers.getEmojis(guildId);
       const emojis = new Collection();
       for(const emoji of rawEmojis){
-        emojis.set(emoji.id, this.forge(emoji, {guild: this.guild}));
+        emojis.set(emoji[0], this.forge(emoji[1], {guild: this.guild}));
       }
       return emojis;
     }
 
     if (this.cache?.has(emojiId)) return this.cache.get(emojiId, { guild: this.guild });
-    const emoji = await this.client.helpers.getEmoji(emojiId);
+    const emoji = await this.client.helpers.getEmoji(guildId, emojiId);
     return this.forge(emoji, {guild: this.guild});
   }
 }

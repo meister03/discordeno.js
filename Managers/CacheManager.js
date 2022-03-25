@@ -148,20 +148,19 @@ class CacheManager {
   }
 
   /** 
-  * @typedef {{properties?: Array[], maxSize?: number, transformerClass?:any, sweepFilter?: Function}} CacheOptions
-  * @typedef {{channels?: CacheOptions, guilds?: CacheOptions, users?: CacheOptions, roles?: CacheOptions, emojis?: CacheOptions, messages?: CacheOptions, members?: CacheOptions}} PluginOptions
+  * @typedef {import('../typings/Managers/CacheManager').CacheOptions} CacheOptions
   */
   /**
   * Overwrites the Handler and configures settings for the CacheManager
   * @param {import('../typings/Managers/CacheManager').Client} client The Discord Client created with .createBot()
-  * @param {PluginOptions} options The options for the CacheManager
+  * @param {import('../typings/Managers/CacheManager').PluginOptions} options The options for the CacheManager
   * @property {CacheOptions} options.channels The options for the channel cache manager
   * @property {CacheOptions} options.guilds The options for the guild cache manager
   * @property {CacheOptions} options.members The options for the member cache manager
   * @property {CacheOptions} options.messages The options for the message cache manager
   * @property {CacheOptions} options.roles The options for the role cache manager
   * @property {CacheOptions} options.users The options for the user cache manager
-  * @return {CacheManager.overwriteHandlers} client with cache handlers
+  * @return {import('../typings/Managers/CacheManager').overwritesHandler} client with cache handlers
   * @example
   *  const client = enableCachePlugin(client, {
   *        channels: {
@@ -212,7 +211,8 @@ class CacheManager {
 
     client.interactions = new InteractionManager(client);
 
-    return CacheManager.overwriteHandlers(client);
+    const editedClient = CacheManager.overwriteHandlers(client);
+    return editedClient;
   }
 }
 module.exports = CacheManager;

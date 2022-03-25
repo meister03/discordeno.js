@@ -1,3 +1,4 @@
+// @ts-check
 class Permissions {
   constructor(permission) {
     this.bits = this.transform(permission);

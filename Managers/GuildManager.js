@@ -1,5 +1,6 @@
+// @ts-check
 const Guild = require("../Structures/Guild");
-const {transformOptions} = require("../Util/transformOptions");
+const { transformOptions } = require("../Util/transformOptions");
 
 class Guilds {
   /** 
@@ -18,12 +19,6 @@ class Guilds {
       const members = v.members;
       const channels = v.channels;
       const roles = v.roles;
-
-      /*  delete v.members;  ///Causes that maps get deleted
-             delete v.channels;
-             delete v.roles; */
-      // @warning: this causes that maps get deleted globally
-
       return new Guild(this.client, v, { roles: roles, channels: channels, members: members });
     }
     return new Guild(this.client, data, { roles: data.roles, channels: data.channels, members: data.members });

@@ -1,3 +1,4 @@
+// @ts-check
 const DestructObject = require("./DestructObject");
 const Collection = require("./Collection");
 const Embed = require("./Embed");

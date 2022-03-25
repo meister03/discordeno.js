@@ -1,3 +1,4 @@
+// @ts-check
 const {getEmoji} = require('../Util/Util');
 
 const Constants = {
@@ -67,7 +68,7 @@ class Component {
     if (!this.url) {
       if (typeof style === "string") {
         this.style = Constants[style.toUpperCase()];
-        if (!this.style) throw new Error(`Invalid Button Style Type: ${type}`);
+        if (!this.style) throw new Error(`Invalid Button Style Type: ${this.type}`);
       } else this.style = style;
     }
     return this;

@@ -1,3 +1,4 @@
+// @ts-check
 const BaseCollection = require('./Collection')
 class Collection extends BaseCollection {
   constructor(options = {}) {
@@ -86,9 +87,9 @@ class Collection extends BaseCollection {
     if (this.context === "guild" && this.properties.includes("threads") && v.threads) {
       const threads = new CloneCollection({ cache: this.client.channels.cache });
       v.threads.forEach((x) => {
-        if (typeof x !== "object") channels.set(x, true);
+        if (typeof x !== "object") threads.set(x, true);
         else {
-          channels.patch(x.id, x);
+          threads.patch(x.id, x);
         }
       });
       v.threads = threads;

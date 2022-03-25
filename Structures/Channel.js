@@ -1,3 +1,4 @@
+// @ts-check
 const DestructObject = require("./DestructObject");
 const PermissionOverwrites = require("./permissionOverwrites");
 const Permissions = require("./Permissions");
@@ -15,7 +16,7 @@ class Channel extends DestructObject {
     this.client = client;
 
     if (options.guild) this.guild = options.guild;
-    else if (channel.guildId) this.guild = client.guilds.forge({ id: this.guildId });
+    else if (channel.guildId) this.guild = client.guilds.forge({ id: channel.guildId });
 
     this.messages = client.messages.forgeManager({}, { messages: options.messages, channel: this, guild: this.guild });
   }
@@ -84,17 +85,17 @@ class Channel extends DestructObject {
 
 
   //Webhook
-  async createWebhook(options = {}, reason) {
-    const webhook = await this.client.helpers.createWebhook(this.id, options, reason);
-    return new Webhook(this.client, webhook, { channel: this });
+  async createWebhook(options = {}) {
+    const webhook = await this.client.helpers.createWebhook(this.id, options);
+    return new Webhook(this.client, webhook);
   }
 
   async fetchWebhooks() {
     const webhooks = await this.client.helpers.getChannelWebhooks(this.id);
     const webhooksCollection = new Collection();
-    webhooks.map(x => 
-      webhooksCollection.set(x.id, new Webhook(this.client, x, { channel: this }))
-    );
+    webhooks.map(x => {
+      webhooksCollection.set(x.id, new Webhook(this.client, x));
+    });
     return webhooksCollection;
   }
 

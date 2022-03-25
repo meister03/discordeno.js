@@ -1,18 +1,18 @@
 import {
-    Bot, 
+    Bot,
     Transformers,
     Message,
     Member,
-    User, 
-    Guild, 
-    Role, 
+    User,
+    Guild,
+    Role,
     Channel,
-    Emoji, 
+    Emoji,
 
-    DiscordEmoji, 
+    DiscordEmoji,
     DiscordMessage,
-    DiscordGuild, 
-    DiscordMember, 
+    DiscordGuild,
+    DiscordMember,
     DiscordUser,
     DiscordEmbed,
     DiscordEmbedField,
@@ -31,10 +31,31 @@ import MessageManager from "../../Managers/MessageManager";
 import EmojiManager from "../../Managers/EmojiManager";
 import InteractionManager from "../../Managers/InteractionManager";
 
-export class CacheManager{
-    public static enableCachePlugin(bot: Client): Client;
-    public static overwriteHandlers(bot: Client): Client;
+export class CacheManager {
+    public static overwriteHandlers: overwritesHandler;
+    public static enableCachePlugin(bot: Bot | Client, options: PluginOptions):overwritesHandler;
 }
+
+export type overwritesHandler = Client;
+
+
+export interface PluginOptions {
+    channels?: CacheOptions;
+    guilds?: CacheOptions;
+    users?: CacheOptions;
+    roles?: CacheOptions;
+    emojis?: CacheOptions;
+    messages?: CacheOptions;
+    members?: CacheOptions;
+}
+
+export interface CacheOptions {
+    properties?: String[];
+    maxSize?: number;
+    transformerClass?: any;
+    sweepFilter?: Function;
+}
+
 
 export interface Client extends Bot {
     channels: ChannelManager;
@@ -51,11 +72,11 @@ export interface Client extends Bot {
 }
 
 export interface editedGatewayManager extends GatewayManager {
-    handleDiscordPayload(bot: Client, packet: DiscordGatewayPayload, shardId: number ): void;
+    handleDiscordPayload(bot: Client, packet: DiscordGatewayPayload, shardId: number): void;
 }
 
 export interface editedTransformers extends Transformers {
-    member(bot: Client, member: editedMemberPayload, guildId: BigInt, userId: BigInt) : editedMember;
+    member(bot: Client, member: editedMemberPayload, guildId: BigInt, userId: BigInt): editedMember;
     guild(bot: Client, guild: editedGuildPayload): editedGuild;
     emoji(bot: Client, emoji: DiscordEmoji): Emoji;
     user(bot: Client, user: DiscordUser): User;
@@ -80,7 +101,7 @@ export interface editedGuild extends Guild {
     emojis: Array[Emoji];
 }
 
-export interface editedGuildPayload extends DiscordGuild{
+export interface editedGuildPayload extends DiscordGuild {
     guild: editedGuild;
 
 }

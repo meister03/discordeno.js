@@ -1,3 +1,4 @@
+// @ts-check
 const User = require("../Structures/User");
 const Collection = require("../Structures/Collection");
 const {transformOptions} = require("../Util/transformOptions");

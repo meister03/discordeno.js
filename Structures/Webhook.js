@@ -1,3 +1,4 @@
+// @ts-check
 const DestructObject = require("./DestructObject");
 const {transformOptions} = require("../Util/transformOptions");
 
@@ -54,7 +55,7 @@ class Webhook extends DestructObject {
     options = transformOptions(options);
 
     const id = options.id || this.id;
-
+    const token = options.token || this.token;
     const reason = options.reason;
 
     return this.client.helpers.deleteWebhook(id,token,reason);

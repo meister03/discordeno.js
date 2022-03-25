@@ -1,3 +1,4 @@
+// @ts-check
 const DestructObject = require("./DestructObject");
 
 class Emoji extends DestructObject {
@@ -6,7 +7,7 @@ class Emoji extends DestructObject {
     this.client = client;
 
     if (options.guild) this.guild = options.guild;
-    else if (emoji.guildId) this.guild = client.guilds.forge({ id: this.guildId });
+    else if (emoji.guildId) this.guild = client.guilds.forge({ id: emoji.guildId });
   }
 }
 module.exports = Emoji;
