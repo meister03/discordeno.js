@@ -76,7 +76,7 @@ class RoleManager {
 
   get highest() {
     if(!this.cache) return null;
-    return {position: [...this.cache.values()].map(r => r).sort((a, b) => b.position - a.position)?.[0]};
+    return [...this.cache.values()].map(r => r).sort((a, b) => b.position - a.position)?.[0] || {position: 0};
   }
 }
 module.exports = RoleManager;
