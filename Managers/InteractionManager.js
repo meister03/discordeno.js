@@ -14,7 +14,7 @@ class InteractionManager {
 
     forge(data = {}, options = {}) {
         data = transformOptions(data);
-        return new Interaction(this.client, data);
+        return new Interaction(this.client, data, options);
     }
 }
 module.exports = InteractionManager;

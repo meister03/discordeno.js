@@ -2,7 +2,7 @@
 const BaseCollection = require('./Collection')
 class Collection extends BaseCollection {
   constructor(options = {}) {
-    super();
+    super(options);
     this.client = options.client;
     this.context = options.context;
     this.properties = options.properties;
@@ -37,13 +37,6 @@ class Collection extends BaseCollection {
     const v = super.get(key);
     if (!v) return null;
     if (options.raw) return v;
-    /*   if (!v.channels) v.channels = new CloneCollection({ cache: this.client.channels.cache });
-          if (!v.roles) v.roles = new CloneCollection({ cache: this.client.roles.cache });
-          if (!v.emojis) v.emojis = new CloneCollection({ cache: this.client.emojis.cache });
-          if (!v.messages) v.messages = new CloneCollection({ cache: this.client.messages.cache });
-          if (!v.stageInstances) v.stageInstances = new CloneCollection({ cache: this.client.channels.cache });
-          if (!v.members) v.members = new CloneCollection({ cache: this.client.members.cache, memberGuildId: (v.id || v.guildId) });
-          if (!v.threads) v.threads = new CloneCollection({ cache: this.client.channels.cache }); */
     return v;
   }
 
@@ -72,8 +65,6 @@ class Collection extends BaseCollection {
 
   set(k, v, options) {
     if (!v) return null;
-    //if (super.has(k)) return this.patch(k, v);
-
     if (this.context === "guild" && this.properties.includes("channels") && v.channels) {
       const channels = new CloneCollection({ cache: this.client.channels.cache });
       v.channels.forEach((x) => {
@@ -313,7 +304,10 @@ class CloneCollection extends BaseCollection {
 
   values(options = {}) {
     const values = new Map(
-      [...super.keys()].map((x) => this.cache._get(this.createKey(x), { transformedKey: true, raw: true })).map(
+      [...super.keys()]
+      .map((x) => this.cache._get(this.createKey(x), { transformedKey: true, raw: true }))
+      .filter(x => x)
+      .map(
         (x) => [x.id, x],
       ),
     );
@@ -322,7 +316,9 @@ class CloneCollection extends BaseCollection {
 
   keys() {
     const values = new Map(
-      [...super.keys()].map((x) => this.cache._get(this.createKey(x), { transformedKey: true })).map((x) => [x.id, x]),
+      [...super.keys()].map((x) => this.cache._get(this.createKey(x), { transformedKey: true }))
+      .filter(x => x)
+      .map((x) => [x.id, x]),
     );
     return values.keys();
   }
@@ -340,7 +336,6 @@ class CloneCollection extends BaseCollection {
   }
 
   patch(key, value) {
-    //console.log(`[Patching] ${key}`);
     if (!value) return null;
     if (typeof key === "string") key = BigInt(key);
 

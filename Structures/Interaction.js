@@ -2,22 +2,9 @@
 const DestructObject = require("./DestructObject");
 const { transformOptions, transformAttachments } = require("../Util/transformOptions");
 
-const Constants = {
-    DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE: 5,
-    CHANNEL_MESSAGE_WITH_SOURCE: 4,
-    DEFERRED_UPDATE_MESSAGE: 6,
-    UPDATE_MESSAGE: 7,
-    APPLICATION_COMMAND_AUTOCOMPLETE_RESULT: 8,
-    MODAL: 9,
-    FLAGS: { EPHEMERAL: 64 },
-    INTERACTION_TYPES: {
-        CHAT_INPUT: 1,
-        APPLICATION_COMMAND: 2,
-        CONTEXT_MENU: 2,
-        MESSAGE_COMPONENT: 3,
-        APPLICATION_COMMAND_AUTOCOMPLETE: 4,
-    }
-}
+const {INTERACTIONS} = require("../Util/Constants");
+const Constants = INTERACTIONS;
+
 class Interaction extends DestructObject {
     /** 
     * @param {import('../typings/Managers/CacheManager').Client} client
@@ -97,7 +84,10 @@ class Interaction extends DestructObject {
 
     async deleteReply(options = {}) {
         options = transformOptions(options);
+        if(options.id) options.messageId = options.id;
+
         if (this.ephemeral) throw new Error('Ephemeral messages cannot be deleted');
+        
         const messageId = this.messageId ? this.messageId : options.messageId;
         return this.client.helpers.deleteInteractionResponse(this.token, messageId);
     }

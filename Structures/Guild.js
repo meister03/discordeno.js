@@ -18,7 +18,24 @@ class Guild extends DestructObject {
     this.members = client.members.forgeManager({}, { guild: this, members: options.members });
     this.emojis = client.emojis.forgeManager({}, { guild: this, emojis: options.emojis });
 
-    this.me = client.members.forge({ id: (client.user ? client.user.id : client.userId) }, { guild: this });
+    this.me = client.members.forge({ id: (client.user ? client.user.id : client.id) }, { guild: this });
+  }
+
+  async fetch(options = {}){
+    return this.client.guilds.fetch(options);
+  }
+
+  async edit(options = {}) {
+    options = transformOptions(options);
+    if(!options.id) options.id = this.id;
+    const guild = await this.client.helpers.editGuild(options.id, options, options.shardId);
+    return this.client.guilds.forge(guild);
+  }
+
+  async leave(options = {}) {
+    options = transformOptions(options);
+    if(!options.id) options.id = this.id;
+    return this.client.helpers.leaveGuild(options.id);
   }
 
   async fetchAuditLogs(options ={}) {

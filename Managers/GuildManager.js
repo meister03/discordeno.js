@@ -10,6 +10,7 @@ class Guilds {
     this.client = client;
     this.cache = options.cache;
   }
+
   forge(data = {}) {
     data = transformOptions(data);
 
@@ -19,14 +20,14 @@ class Guilds {
       const members = v.members;
       const channels = v.channels;
       const roles = v.roles;
-      return new Guild(this.client, v, { roles: roles, channels: channels, members: members });
+      const emojis = v.emojis;
+      return new Guild(this.client, v, { roles: roles, channels: channels, members: members, emojis: emojis });
     }
-    return new Guild(this.client, data, { roles: data.roles, channels: data.channels, members: data.members });
+    return new Guild(this.client, data, { roles: data.roles, channels: data.channels, members: data.members, emojis: data.emojis });
   }
 
   async fetch(options = {}) {
     options = transformOptions(options);
-
     const guild = await this.client.helpers.getGuild(options.id, options);
     return this.forge(guild);
   }

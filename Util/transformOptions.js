@@ -8,6 +8,9 @@ module.exports = {
         if (defaults.content) {
             if (typeof options === "string") options = { content: options };
         }
+        if (defaults.reason) {
+            if (typeof options === "string") options = { reason: options };
+        }
         if (typeof options !== "object") options = { id: options };
         if (typeof options.id === "string") options.id = BigInt(options.id);
 

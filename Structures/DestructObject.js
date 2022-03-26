@@ -16,7 +16,7 @@ class DestructObject {
   }
 
   toJSON() {
-    return { ...this };
+    return this._raw;
   }
 }
 module.exports = DestructObject;

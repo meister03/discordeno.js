@@ -41,11 +41,14 @@ class Channel extends DestructObject {
   }
 
   async delete(reason) {
-    return this.client.helpers.deleteChannel(this.id, reason);
+    const op = await this.client.helpers.deleteChannel(this.id, reason);
+    return true;
   }
 
-  async fetch() {
-    return this.client.channels.fetch(this.id);
+  async fetch(options = {}) {
+    options = transformOptions(options);
+    if(!options.id) options.id = this.id;
+    return this.client.channels.fetch(options);
   }
 
   async send(options = {}) {
@@ -60,7 +63,7 @@ class Channel extends DestructObject {
   }
 
   async bulkDelete(options = {}, reason) {
-    options.map(x => BigInt(x ? x.id : x));
+    options.map(x => BigInt(x?.id ? x.id : x));
     return this.client.helpers.deleteMessages(this.id, options, reason);
   }
 
@@ -78,7 +81,8 @@ class Channel extends DestructObject {
 
     return new PermissionOverwrites(this.client, {}, { channel: this, permissionOverwrites: cache });
   }
-
+  
+  // @todo
   permissionsFor({ id }) {
     return this.permissionOverwrites.get(id);
   }

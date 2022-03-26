@@ -11,6 +11,9 @@ class Collector extends EventEmitter {
 
     this.client = options.client;
 
+    this.eventListener = options.listener || this.client?.eventListener;
+    if(!this.eventListener) throw new Error("No event listener has been provided");
+
     this.items = new Collection();
 
     this.filter = options.filter || ((a) => true);
@@ -25,10 +28,10 @@ class Collector extends EventEmitter {
   }
 
   startCollector() {
-    this.client.eventListener.on(this.event, this._collectFunction);
+    this.eventListener.on(this.event, this._collectFunction);
     this.timeout = setTimeout(() => {
       this.emit("end", this.items);
-      this.client.eventListener.removeListener(this.event, this._collectFunction);
+      this.eventListener.removeListener(this.event, this._collectFunction);
     }, this._timeout);
   }
 
@@ -36,7 +39,7 @@ class Collector extends EventEmitter {
     if (options.emit === undefined) options.emit = true;
     clearTimeout(this.timeout);
     if (options.emit) this.emit("end", this.items);
-    return this.client.eventListener.removeListener(this.event, this._collectFunction);
+    return this.eventListener.removeListener(this.event, this._collectFunction);
   }
 
   collectFunction(...args) {

@@ -12,13 +12,6 @@ class Emojis {
     if (options.guild) this.guild = options.guild;
   }
 
-  async create(options = {}, reason) {
-    options = transformOptions(options);
-    const guildId = options.guildId || this.guild?.id;
-
-    return this.client.helpers.createEmoji(guildId, options)
-  }
-
   forge(data = {}, options = {}) {
     data = transformOptions(data);
     return new Emoji(this.client, data, { guild: options.guild });
@@ -26,6 +19,21 @@ class Emojis {
 
   forgeManager(data = {}, options = {}) {
     return new Emojis(this.client, data, { guild: options.guild, emojis: options.emojis });
+  }
+
+  async create(options = {}) {
+    if (!options.guildId) options.guildId = this.guild?.id;
+    return new Emoji(this.client, options).create(options);
+  }
+
+  async edit(options = {}) {
+    if (!options.guildId) options.guildId = this.guild?.id;
+    return this.forge(options, { guild: this.guild }).edit(options);
+  }
+
+  async delete(options = {}) {
+    options = transformOptions(options);
+    return new Emoji(this.client, { id: options.id }).delete(options);
   }
 
   async fetch(options = {}){
