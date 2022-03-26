@@ -7,7 +7,7 @@ class ChannelManager {
   /** 
    * Creates the GuildChannelManager for the Guild.
    * @param {import('../typings/Managers/CacheManager').Client} client Discordeno.js Client
-   * @param {import('discordeno').Channel} data Discordeno Channel Data
+   * @param {import('discordeno').Channel|{}} data Discordeno Channel Data
    * @param {import('../typings/Managers/ChannelManager').Options} options Options for the ChannelManager
    */
   constructor(client, data = {}, options = {}) {
@@ -19,7 +19,7 @@ class ChannelManager {
 
   /**
   * Creates a GuildChannel of a given type[number]
-  * @param {import('discordeno').CreateGuildChannel} options The options to create the GuildChannel with
+  * @param {import('../typings/Structures/Channel').createChannelData} options The options to create the GuildChannel with
   * @param {?string} reason The reason of the channel creation
   * @return {Promise<import('../typings/Structures/Channel').Channel>} Channel Instance
   * @example
@@ -40,7 +40,7 @@ class ChannelManager {
   *  const channel = await client.channels.edit({id: '123', name: "test"}, "I am changing the name");
   *     
   */
-  async edit(options = {}, reason) {
+  async edit(options, reason) {
     if (!options.guildId) options.guildId = this.guild?.id;
     return this.forge(options, { guild: this.guild }).edit(options, reason);
   }
@@ -53,7 +53,7 @@ class ChannelManager {
   *  const channel = await client.channels.delete({id: '123'}, "I don't like this channel anymore");
   *     
   */
-  async delete(options = {}) {
+  async delete(options) {
     options = transformOptions(options);
     return new Channel(this.client, { id: options.id }).delete(options.reason);
   }
@@ -66,7 +66,7 @@ class ChannelManager {
   *  const channels = await client.channels.fetch({guildId: '456'});
   *  const channel  = await client.channels.fetch({id: '123'}); 
   */
-  async fetch(options = {}) {
+  async fetch(options) {
     options = transformOptions(options);
 
     const guildId = options.guildId || this.guild?.id;
@@ -92,14 +92,14 @@ class ChannelManager {
 
   /**
   * Transforms a Discordeno Channel in a Class with functions
-  * @param {import('../typings/Structures/Channel').editChannelData} data The options to transform with
+  * @param {import('../typings/Structures/Channel').ChannelData|import('../typings/Structures/Channel').editChannelData} data The options to transform with
   * @param {import('../typings/Managers/ChannelManager').Options} options The reason for editing the channel  
   * @return {import('../typings/Structures/Channel').Channel} Channel Instance
   * @example
   *  const channel = await client.channels.forge({id: '123', name: "test"});
   *     
   */
-  forge(data = {}, options = {}) {
+  forge(data, options = {}) {
     data = transformOptions(data);
 
     if (options.guild) {

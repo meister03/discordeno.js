@@ -14,6 +14,10 @@ export class Channel extends DDChannel {
     public send(options: CreateMessage): Promise<Message>;
 }
 
+export interface ChannelData extends DDChannel{
+
+}
+
 export interface editChannelData extends CreateGuildChannel{
     id: bigint;
     guildId?: bigint;
@@ -23,10 +27,15 @@ export interface editChannelData extends CreateGuildChannel{
 export interface deleteChannelData {
     id: bigint;
     guildId?: bigint;
-    reson?: string;
+    reason?: string;
 }
 
 export interface fetchChannelData {
     id: bigint;
     guildId?: bigint;
+}
+
+export interface createChannelData {
+    id: bigint;
+    guildId: bigint;
 }
