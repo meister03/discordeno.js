@@ -7,8 +7,7 @@
   "dependencies": {
     "discordeno": "^13.0.0-rc26"
   },
-  "script": {
-  },
+  "script": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/meister03/discordeno.js.git"
@@ -30,5 +29,9 @@
   "bugs": {
     "url": "https://github.com/meister03/discordeno.js/issues"
   },
-  "homepage": "https://github.com/meister03/discordeno.js/#readme"
+  "homepage": "https://github.com/meister03/discordeno.js/#readme",
+  "devDependencies": {
+    "clean-jsdoc-theme": "^3.3.4",
+    "jsdoc": "^3.6.10"
+  }
 }

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Adding favicon -->
+    
+
+    <!-- Adding meta -->
+    
+
+    <!-- Adding external script-->
+    
+
+    <!-- Adding external style-->
+    
+
+    <!-- Adding scripts-->
+    
+
+    <!-- Adding style-->
+    
+
+    <!-- Adding overlay script-->
+    
+
+    <!-- Adding overlay style-->
+    
+
+
+    <title>
+      Managers/CacheManager.js
+    </title>
+
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/third-party/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/third-party/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/reset.css">
+    <link type="text/css" rel="stylesheet" href="styles/clean-jsdoc-theme-base.css">
+    <link type="text/css" rel="stylesheet" href="styles/clean-jsdoc-theme-dark.css">
+    
+    <svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    style="display:none">
+    <defs>
+        <symbol id="copy-icon" viewbox="0 0 488.3 488.3">
+            <g>
+                <path
+                    d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z" />
+                <path
+                    d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z" />
+            </g>
+        </symbol>
+        <symbol id='search-icon' viewBox="0 0 512 512">
+            <g>
+                <g>
+                    <path
+                        d="M225.474,0C101.151,0,0,101.151,0,225.474c0,124.33,101.151,225.474,225.474,225.474    c124.33,0,225.474-101.144,225.474-225.474C450.948,101.151,349.804,0,225.474,0z M225.474,409.323    c-101.373,0-183.848-82.475-183.848-183.848S124.101,41.626,225.474,41.626s183.848,82.475,183.848,183.848    S326.847,409.323,225.474,409.323z" />
+                </g>
+            </g>
+            <g>
+                <g>
+                    <path
+                        d="M505.902,476.472L386.574,357.144c-8.131-8.131-21.299-8.131-29.43,0c-8.131,8.124-8.131,21.306,0,29.43l119.328,119.328    c4.065,4.065,9.387,6.098,14.715,6.098c5.321,0,10.649-2.033,14.715-6.098C514.033,497.778,514.033,484.596,505.902,476.472z" />
+                </g>
+            </g>
+        </symbol>
+        <symbol id="down-icon" viewBox="0 0 16 16">
+            <path 
+                fill-rule="evenodd" 
+                clip-rule="evenodd" 
+                d="M12.7803 6.21967C13.0732 6.51256 13.0732 6.98744 12.7803 7.28033L8.53033 11.5303C8.23744 11.8232 7.76256 11.8232 7.46967 11.5303L3.21967 7.28033C2.92678 6.98744 2.92678 6.51256 3.21967 6.21967C3.51256 5.92678 3.98744 5.92678 4.28033 6.21967L8 9.93934L11.7197 6.21967C12.0126 5.92678 12.4874 5.92678 12.7803 6.21967Z"
+            >
+            </path>
+        </symbol>
+    </defs>
+</svg>
+  </head>
+
+  <body>
+
+    <nav class="navbar" id="navbar">
+      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><div class="accordion collapsed" id="6249082" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion collapsed child" id=6547985><div class="accordion-heading child"><a href="Channel.html">Channel</a><svg><use xlink:href="#down-icon"></use></svg></div><ul class='methods accordion-content'><li data-type='method'><a href="Channel.html#create">create</a></li><li data-type='method'><a href="Channel.html#delete">delete</a></li><li data-type='method'><a href="Channel.html#edit">edit</a></li><li data-type='method'><a href="Channel.html#fetch">fetch</a></li></ul></li><li class="accordion collapsed child" id=9720370><div class="accordion-heading child"><a href="ChannelManager.html">ChannelManager</a><svg><use xlink:href="#down-icon"></use></svg></div><ul class='methods accordion-content'><li data-type='method'><a href="ChannelManager.html#create">create</a></li><li data-type='method'><a href="ChannelManager.html#delete">delete</a></li><li data-type='method'><a href="ChannelManager.html#edit">edit</a></li><li data-type='method'><a href="ChannelManager.html#fetch">fetch</a></li><li data-type='method'><a href="ChannelManager.html#forge">forge</a></li></ul></li><li class="accordion-list" id=""><a href="Emoji.html">Emoji</a></li><li class="accordion-list" id=""><a href="Emojis.html">Emojis</a></li><li class="accordion-list" id=""><a href="Guild.html">Guild</a></li><li class="accordion-list" id=""><a href="Guilds.html">Guilds</a></li><li class="accordion-list" id=""><a href="Interaction.html">Interaction</a></li><li class="accordion-list" id=""><a href="InteractionManager.html">InteractionManager</a></li><li class="accordion-list" id=""><a href="Member.html">Member</a></li><li class="accordion-list" id=""><a href="Members.html">Members</a></li><li class="accordion-list" id=""><a href="MessageManager.html">MessageManager</a></li><li class="accordion-list" id=""><a href="permissionOverwrites.html">permissionOverwrites</a></li><li class="accordion-list" id=""><a href="Role.html">Role</a></li><li class="accordion-list" id=""><a href="RoleManager.html">RoleManager</a></li><li class="accordion-list" id=""><a href="User.html">User</a></li><li class="accordion-list" id=""><a href="Users.html">Users</a></li></ul> </div>
+      
+
+    </nav>
+    <div class="navbar-ham" id="navbar-ham">
+      <div>
+        <div class="first"></div>
+        <div class="second"></div>
+        <div class="third"></div>
+      </div>
+    </div>
+
+    <div id="main" class="main-content">
+      
+      <h1 id='page-title' class="page-title">
+        Managers/CacheManager.js
+      </h1>
+      
+
+      
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>//@ts-check
+// Managers
+const GuildManager = require("./GuildManager");
+const ChannelManager = require("./ChannelManager");
+const RoleManager = require("./RoleManager");
+const EmojiManager = require("./EmojiManager");
+
+const MemberManager = require("./MemberManager");
+const UserManager = require("./UserManager");
+
+const MessageManager = require("./MessageManager");
+const InteractionManager = require("./InteractionManager");
+
+///Structures
+const Collection = require("../Structures/CacheCollection");
+const Guild = require("../Structures/Guild");
+const User = require("../Structures/User");
+const Emoji = require("../Structures/Emoji");
+const Message = require("../Structures/Message");
+const Channel = require("../Structures/Channel");
+const Role = require("../Structures/Role");
+const Member = require("../Structures/Member");
+
+/// Packet Handlers
+const Actions = require("./Actions");
+
+class CacheManager {
+  /**
+ * Overwrites Handler in order to allow caching, when events are fired or ressources have been received.
+ * @param {import('../typings/Managers/CacheManager').Client} bot The Discord Client created with .createBot()
+ * @return {import('../typings/Managers/CacheManager').Client} client client with overwritten handlers
+ */
+  static overwriteHandlers(bot) {
+    const { guild, user, member, channel, message, role, emoji, embed } = bot.transformers;
+    const { handleDiscordPayload } = bot.gateway;
+
+    bot.gateway.handleDiscordPayload = function (_bot, packet, shardId) {
+      //console.log(packet.t);
+      if (Actions[packet.t]) Actions[packet.t](bot, packet, shardId);
+      handleDiscordPayload(bot, packet, shardId);
+    };
+
+    bot.transformers.guild = function (_, payload) {
+      // Run the unmodified transformer
+      const roles = payload.guild.roles;
+      payload.guild.roles = [];
+
+      const emojis = payload.guild.emojis;
+      payload.guild.emojis = [];
+
+      const result = guild(bot, payload);
+      if (payload.guild) {
+        result.channels = payload.guild.channels?.map((x) => channel(bot, { channel: x, guildId: result.id }));
+        result.members = payload.guild.members?.map((x) => member(bot, x, result.id, BigInt(x.user.id)));
+
+        result.roles = roles?.map((x) => role(bot, { role: x, guildId: result.id }));
+        result.emojis = emojis?.map((x) => emoji(bot, x));
+      }
+      // Cache the result
+      if (result) {
+        bot.guilds.cache.patch(result.id, result);
+      }
+
+      // Return the result
+      return result;
+    };
+
+    bot.transformers.channel = function (_, payload) {
+      const guildId = payload.guildId ?? payload.channel.guild_id;
+      const guild = bot.guilds.cache.base({ id: guildId });
+      const result = channel(bot, payload);
+      guild.channels = [result];
+      bot.guilds.cache.patch(guild.id, guild);
+      return result;
+    };
+
+    bot.transformers.message = function (_, payload) {
+      const channel = bot.channels.cache.base({ id: payload.channel_id });
+      const result = message(bot, payload);
+
+      channel.messages = [result];
+
+      bot.channels.cache.patch(channel.id, channel);
+
+      if (!result.author) {
+        const author = {
+          id: payload.author.id,
+          username: payload.author.username,
+          discriminator: String(payload.author.discriminator),
+          avatar: payload.author.avatar ? payload.author.avatar : undefined,
+          bot: payload.author.bot,
+          flags: payload.author.flags,
+          public_flags: payload.author.public_flags,
+        }
+        result.author = bot.transformers.user(bot, author);
+      }
+
+      if (payload.member) {
+        bot.transformers.member(bot, payload.member, BigInt(payload.guild_id), BigInt(payload.author.id));
+      }
+
+      if (payload.mentions) {
+        result.mentionedUsers = payload.mentions?.map((x) => bot.transformers.user(bot, x));
+      }
+
+      return result;
+    };
+
+    bot.transformers.role = function (_, payload) {
+      const guildId = payload.guildId ?? payload.role?.guild_id;
+      const guild = bot.guilds.cache.base({ id: guildId });
+      const result = role(bot, payload);
+      guild.roles = [result];
+      bot.guilds.cache.patch(guild.id, guild);
+      return result;
+    };
+
+    bot.transformers.emoji = function (_, payload) {
+      // @ no op
+      return emoji(bot, payload);
+    };
+    bot.transformers.member = function (_, payload, guildId, userId) {
+      const result = member(bot, payload, guildId, userId);
+      const guild = bot.guilds.cache.base({ id: guildId });
+      guild.members = [result];
+      bot.guilds.cache.patch(guild.id, guild);
+      if (payload.user) {
+        result.user = bot.transformers.user(bot, payload.user);
+      }
+      return result;
+    }
+
+    bot.transformers.user = function (_, payload) {
+      const result = user(bot, payload);
+      bot.users.cache.patch(result.id, result);
+      return result;
+    };
+
+    bot.transformers.embed = function (_, payload) {
+      const result = embed(bot, payload);
+      if (!result.fields) {
+        result.fields = [];
+      }
+      return result;
+    }
+
+    return bot;
+  }
+
+  /** 
+  * @typedef {import('../typings/Managers/CacheManager').CacheOptions} CacheOptions
+  */
+  /**
+  * Overwrites the Handler and configures settings for the CacheManager
+  * @param {import('../typings/Managers/CacheManager').Client} client The Discord Client created with .createBot()
+  * @param {import('../typings/Managers/CacheManager').PluginOptions} options The options for the CacheManager
+  * @property {CacheOptions} options.channels The options for the channel cache manager
+  * @property {CacheOptions} options.guilds The options for the guild cache manager
+  * @property {CacheOptions} options.members The options for the member cache manager
+  * @property {CacheOptions} options.messages The options for the message cache manager
+  * @property {CacheOptions} options.roles The options for the role cache manager
+  * @property {CacheOptions} options.users The options for the user cache manager
+  * @return {import('../typings/Managers/CacheManager').overwritesHandler} client with cache handlers
+  * @example
+  *  const client = enableCachePlugin(client, {
+  *        channels: {
+  *             properties: ['guildId', 'id'],
+  *             maxSize: 100,
+  *             sweepFilter: (channel) => channel.type !== 'text';
+  *         }
+  *         guilds: {},
+  *         roles: {},
+  *         users: {},
+  *         messages: {},
+  *         members: {},
+  *          emojis: {},
+  *   })
+  *     
+  */
+
+
+  static enableCachePlugin(client, options = {}) {
+    
+    const channelOptions = createOptions(client, options.channels, Channel, "channel");
+    client.channels = new ChannelManager(client);
+    client.channels.cache = new Collection(channelOptions);
+
+    const guildOptions = createOptions(client, options.guilds, Guild, "guild");
+    client.guilds = new GuildManager(client);
+    client.guilds.cache = new Collection(guildOptions);
+
+    const roleOptions = createOptions(client, options.roles, Role);
+    client.roles = new RoleManager(client);
+    client.roles.cache = new Collection(roleOptions);
+
+    const userOptions = createOptions(client, options.users, User);
+    client.users = new UserManager(client);
+    client.users.cache = new Collection(userOptions);
+
+    const emojiOptions = createOptions(client, options.emojis, Emoji);
+    client.emojis = new EmojiManager(client);
+    client.emojis.cache = new Collection(emojiOptions);
+
+    const messageOptions = createOptions(client, options.messages, Message);
+    client.messages = new MessageManager(client);
+    client.messages.cache = new Collection(messageOptions);
+
+    const memberOptions = createOptions(client, options.members, Member);
+    client.members = new MemberManager(client);
+    client.members.cache = new Collection(memberOptions);
+
+    client.interactions = new InteractionManager(client);
+
+    const editedClient = CacheManager.overwriteHandlers(client);
+    return editedClient;
+  }
+}
+module.exports = CacheManager;
+
+function createOptions(client, options = {}, transformerClass, context) {
+  return {
+    client,
+    context,
+    properties: options.properties ?? createFakePropertyOptions(),
+    transformerClass: transformerClass ?? options.transformerClass,
+  };
+}
+
+function createFakePropertyOptions() {
+  return {
+    includes: (str) => true,
+    _cacheAll: true,
+  };
+}
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    </div>
+
+    <footer class="footer" id="footer">
+      
+    </footer>
+
+    <script src="scripts/third-party/prettify.js"></script>
+    <script src="scripts/third-party/lang-css.js"></script>
+    <script type="text/javascript" src="scripts/misc.js"></script>
+
+    <script>prettyPrint();</script>
+    <script src="scripts/linenumber.js"></script>
+    <script src="scripts/fix-code-block.js"></script>
+    <script src="scripts/fix-navbar.js"></script>
+    
+      <script src="scripts/search.js"></script>
+      <script src="scripts/third-party/fuse.js"></script>
+      <script>
+        var list = [{"title":"Channel","link":"<a href=\"Channel.html\">Channel</a>"},{"title":"Channel#create","link":"<a href=\"Channel.html#create\">Channel &rtrif; create</a>"},{"title":"Channel#delete","link":"<a href=\"Channel.html#delete\">Channel &rtrif; delete</a>"},{"title":"Channel#edit","link":"<a href=\"Channel.html#edit\">Channel &rtrif; edit</a>"},{"title":"Channel#fetch","link":"<a href=\"Channel.html#fetch\">Channel &rtrif; fetch</a>"},{"title":"ChannelManager","link":"<a href=\"ChannelManager.html\">ChannelManager</a>"},{"title":"ChannelManager#create","link":"<a href=\"ChannelManager.html#create\">ChannelManager &rtrif; create</a>"},{"title":"ChannelManager#delete","link":"<a href=\"ChannelManager.html#delete\">ChannelManager &rtrif; delete</a>"},{"title":"ChannelManager#edit","link":"<a href=\"ChannelManager.html#edit\">ChannelManager &rtrif; edit</a>"},{"title":"ChannelManager#fetch","link":"<a href=\"ChannelManager.html#fetch\">ChannelManager &rtrif; fetch</a>"},{"title":"ChannelManager#forge","link":"<a href=\"ChannelManager.html#forge\">ChannelManager &rtrif; forge</a>"},{"title":"Emoji","link":"<a href=\"Emoji.html\">Emoji</a>"},{"title":"Emojis","link":"<a href=\"Emojis.html\">Emojis</a>"},{"title":"Guild","link":"<a href=\"Guild.html\">Guild</a>"},{"title":"Guilds","link":"<a href=\"Guilds.html\">Guilds</a>"},{"title":"Interaction","link":"<a href=\"Interaction.html\">Interaction</a>"},{"title":"InteractionManager","link":"<a href=\"InteractionManager.html\">InteractionManager</a>"},{"title":"Member","link":"<a href=\"Member.html\">Member</a>"},{"title":"Members","link":"<a href=\"Members.html\">Members</a>"},{"title":"MessageManager","link":"<a href=\"MessageManager.html\">MessageManager</a>"},{"title":"permissionOverwrites","link":"<a href=\"permissionOverwrites.html\">permissionOverwrites</a>"},{"title":"Role","link":"<a href=\"Role.html\">Role</a>"},{"title":"RoleManager","link":"<a href=\"RoleManager.html\">RoleManager</a>"},{"title":"User","link":"<a href=\"User.html\">User</a>"},{"title":"Users","link":"<a href=\"Users.html\">Users</a>"}];
+        var options = 
+          setupSearch(list, options)
+      </script>
+    
+
+    
+
+    
+
+    
+
+
+  </body>
+
+</html>

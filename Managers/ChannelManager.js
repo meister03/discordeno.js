@@ -20,7 +20,7 @@ class ChannelManager {
   /**
   * Creates a GuildChannel of a given type[number]
   * @param {import('../typings/Structures/Channel').createChannelData} options The options to create the GuildChannel with
-  * @param {?string} reason The reason of the channel creation
+  * @param {string|undefined} reason The reason of the channel creation
   * @return {Promise<import('../typings/Structures/Channel').Channel>} Channel Instance
   * @example
   *  const channel = await client.channels.create({name: "test"}, "I like this new channel");
@@ -34,7 +34,7 @@ class ChannelManager {
   /**
   * Edits a existing GuildChannel
   * @param {import('../typings/Structures/Channel').editChannelData} options The options to edit the GuildChannel with
-  * @param {?string} reason The reason for editing the channel  
+  * @param {string|undefined} reason The reason for editing the channel  
   * @return {Promise<import('../typings/Structures/Channel').Channel>} Channel Instance
   * @example
   *  const channel = await client.channels.edit({id: '123', name: "test"}, "I am changing the name");
@@ -47,7 +47,7 @@ class ChannelManager {
 
   /**
   * Deletes a existing GuildChannel
-  * @param {import('../typings/Structures/Channel').deleteChannelData} options The options for deleting the GuildChannel with
+  * @param {import('../typings/Structures/Channel').deleteChannelData|undefined} options The options for deleting the GuildChannel with
   * @return {Promise<Boolean>} Whether the channel deleted successfully
   * @example
   *  const channel = await client.channels.delete({id: '123'}, "I don't like this channel anymore");
