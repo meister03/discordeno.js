@@ -115,9 +115,13 @@ class CacheManager {
       return result;
     };
 
-    bot.transformers.emoji = function (_, payload) {
-      // @ no op
-      return emoji(bot, payload);
+    bot.transformers.emoji = function (_, payload, guildId) {
+      if(!guildId) return emoji(bot, payload);
+      const result = emoji(bot, payload);
+      const guild = bot.guilds.cache.base({ id: guildId });
+      guild.emojis = [result];   
+      bot.guilds.cache.patch(guild.id, guild);
+      return result;
     };
     bot.transformers.member = function (_, payload, guildId, userId) {
       const result = member(bot, payload, guildId, userId);
@@ -219,6 +223,7 @@ module.exports = CacheManager;
 
 function createOptions(client, options = {}, transformerClass, context) {
   return {
+    ...options,
     client,
     context,
     properties: options.properties ?? createFakePropertyOptions(),

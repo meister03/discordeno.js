@@ -346,6 +346,7 @@ class CloneCollection extends BaseCollection {
     Object.keys(value).forEach((k) => {
       if (k in oldValue && value[k]) oldValue[k] = value[k];
     });
+    if(oldValue.user) delete oldValue.user;
     return this.set(key, oldValue);
   }
 }
