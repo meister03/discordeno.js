@@ -20,8 +20,8 @@ class Role extends DestructObject {
 
   async delete(options) {
     const guildId = this.guildId || this.guilld?.id;
-    const role = await this.client.helpers.deleteRole(guildId, this.id);
-    return role;
+    const res = await this.client.helpers.deleteRole(guildId, this.id);
+    return true;
   }
 
   async create(options = {}, reason) {
@@ -36,6 +36,12 @@ class Role extends DestructObject {
     if (options.color) options.color = convertColor(options.color);
     const role = await this.client.helpers.editRole(guildId, this.id, options);
     return this.client.roles.forge(role, { guild: this.guild });
+  }
+
+  async setPosition(position){
+    const guildId = this.guildId || this.guild?.id;
+    const roles = await this.client.helpers.modifyRolePositions(guildId, [{id: this.id, position}]);
+    return roles.map(x => this.client.roles.forge(x, { guild: this.guild }));
   }
 
 }

@@ -1,4 +1,3 @@
-// @ts-check
 const DestructObject = require("./DestructObject");
 const Permissions = require("./Permissions");
 const Collection = require("./Collection");
@@ -76,7 +75,8 @@ class Member extends DestructObject {
     const guildId = options.guildId || this.guildId || this.guild?.id;
     const reason = options.reason;
 
-    return this.client.helpers.kickMember(guildId, id, reason);
+    const res = await this.client.helpers.kickMember(guildId, id, reason);
+    return this;
   }
 
   async ban(options = {}){
@@ -85,7 +85,8 @@ class Member extends DestructObject {
     const id = options.id || this.id;
     const guildId = options.guildId || this.guildId || this.guild?.id;
 
-    return this.client.helpers.banMember(guildId, id, options);
+    const res = await this.client.helpers.banMember(guildId, id, options);
+    return this;
   }
 
   async unban(options = {}){
@@ -93,7 +94,8 @@ class Member extends DestructObject {
 
     const id = options.id || this.id;
     const guildId = options.guildId || this.guildId || this.guild?.id;
-    return this.client.helpers.unbanMember(guildId, id);
+    const res = await this.client.helpers.unbanMember(guildId, id);
+    return this;
   }
 
   async edit(options = {}){
@@ -102,7 +104,8 @@ class Member extends DestructObject {
     const id = options.id || this.id;
     const guildId = options.guildId || this.guildId || this.guild?.id;
 
-    return this.client.helpers.editMember(guildId, id, options);
+    const member = await this.client.helpers.editMember(guildId, id, options);
+    return this.client.members.forge(member, {guild: this.guild});
   }
 
 

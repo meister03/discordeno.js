@@ -47,19 +47,23 @@ class Message extends DestructObject {
 
   async delete(options = {}) {
     options = transformOptions(options);
-    return this.client.helpers.deleteMessage(this.channel.id, this.id, options.reason, options.delayMilliseconds);
+    const res = await this.client.helpers.deleteMessage(this.channel.id, this.id, options.reason, options.delayMilliseconds);
+    return true;
   }
 
   async react(emoji) {
-    return this.client.helpers.addReaction(this.channel.id, this.id, emoji);
+    const res = await this.client.helpers.addReaction(this.channel.id, this.id, emoji);
+    return this;
   }
 
   async pin() {
-    return this.client.helpers.pinMessage(this.channel.id, this.id);
+    const res = await this.client.helpers.pinMessage(this.channel.id, this.id);
+    return this;
   }
 
   async unpin() {
-    return this.client.helpers.unpinMessage(this.channel.id, this.id);
+    const res = await this.client.helpers.unpinMessage(this.channel.id, this.id);
+    return this;
   }
 
 

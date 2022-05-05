@@ -1,11 +1,11 @@
 {
   "name": "discordeno.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A wrapper around Discordeno that comes with a Djs-like interface and a lot of other features.",
   "main": "index.js",
   "types": "./typings.d.ts",
   "dependencies": {
-    "discordeno": "^13.0.0-rc26"
+    "discordeno": "^13.0.0-rc34"
   },
   "script": {},
   "repository": {

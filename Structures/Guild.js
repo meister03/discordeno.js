@@ -35,7 +35,8 @@ class Guild extends DestructObject {
   async leave(options = {}) {
     options = transformOptions(options);
     if(!options.id) options.id = this.id;
-    return this.client.helpers.leaveGuild(options.id);
+    const res = await this.client.helpers.leaveGuild(options.id);
+    return true;
   }
 
   async fetchAuditLogs(options ={}) {

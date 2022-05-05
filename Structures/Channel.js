@@ -100,7 +100,8 @@ class Channel extends DestructObject {
 
   async bulkDelete(options = {}, reason) {
     options.map(x => BigInt(x?.id ? x.id : x));
-    return this.client.helpers.deleteMessages(this.id, options, reason);
+    const res = await this.client.helpers.deleteMessages(this.id, options, reason);
+    return true;
   }
 
   get permissionOverwrites() {

@@ -58,7 +58,8 @@ class Webhook extends DestructObject {
     const token = options.token || this.token;
     const reason = options.reason;
 
-    return this.client.helpers.deleteWebhook(id,token,reason);
+    const res = await this.client.helpers.deleteWebhook(id,token,reason);
+    return true;
   }
 }
 module.exports = Webhook;

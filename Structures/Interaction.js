@@ -28,8 +28,8 @@ class Interaction extends DestructObject {
     isContextMenuCommand() { return this.isCommand(); }
     isAutoComplete() { return this.type === Constants.INTERACTION_TYPES.APPLICATION_COMMAND_AUTOCOMPLETE; }
     isMessageComponent() { return this.type === Constants.INTERACTION_TYPES.MESSAGE_COMPONENT; }
-    isSelectMenu() { return this.type === Constants.INTERACTION_TYPES.MESSAGE_COMPONENT; }
-    isButton() { return this.type === Constants.INTERACTION_TYPES.MESSAGE_COMPONENT; }
+    isSelectMenu() { return this.type === Constants.INTERACTION_TYPES.MESSAGE_COMPONENT && this.data.values; }
+    isButton() { return this.type === Constants.INTERACTION_TYPES.MESSAGE_COMPONENT && !this.data.values; }
 
     async deferReply(options = {}) {
         const Payload = { data: {}, type: Constants.DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE };
