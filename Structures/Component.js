@@ -168,7 +168,7 @@ class Component {
       });
       json.placeholder = this.placeholder;
       json.minValues = this.min_values;
-      json.maxValues = this.max_values;
+      json.maxValues = this.max_values ?? json.options.length;
       json.disabled = this.disabled;
     }
 
