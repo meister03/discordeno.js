@@ -5,7 +5,7 @@
   "main": "index.js",
   "types": "./typings.d.ts",
   "dependencies": {
-    "discordeno": "^13.0.0-rc34"
+    "discordeno": "^13.0.0-rc35"
   },
   "script": {},
   "repository": {
