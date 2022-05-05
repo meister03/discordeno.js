@@ -1,4 +1,5 @@
 // @ts-check
+// Credits to Discord.js v13 | Link: https://github.com/discordjs/discord.js/blob/988a51b7641f8b33cc9387664605ddc02134859d/src/util/BitField.js
 class Permissions {
   constructor(permission) {
     this.bits = this.transform(permission);
@@ -27,6 +28,26 @@ class Permissions {
 
   freeze() {
     return Object.freeze(this);
+  }
+  
+  add(...bits) {
+    let total = 0n;
+    for (const bit of bits) {
+      total |= this.transform(bit);
+    }
+    if (Object.isFrozen(this)) return new this.constructor(this.bits | total);
+    this.bits |= total;
+    return this;
+  }
+
+  remove(...bits) {
+    let total = 0n;
+    for (const bit of bits) {
+      total |= this.transform(bit);
+    }
+    if (Object.isFrozen(this)) return new this.constructor(this.bits & ~total);
+    this.bits &= ~total;
+    return this;
   }
 
   toArray(){

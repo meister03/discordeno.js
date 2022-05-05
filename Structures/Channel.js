@@ -24,15 +24,15 @@ class Channel extends DestructObject {
     this.messages = client.messages.forgeManager({}, { messages: options.messages, channel: this, guild: this.guild });
   }
 
- /**
- * Creates a GuildChannel of a given type[number]
- * @param {import('../typings/Structures/Channel').createChannelData} options The options to create the GuildChannel with
- * @param {string|undefined} reason The reason of the channel creation
- * @return {Promise<import('../typings/Structures/Channel').Channel>} Channel Instance
- * @example
- *  const channel = await client.channels.create({name: "test"}, "I like this new channel");
- *     
- */
+  /**
+  * Creates a GuildChannel of a given type[number]
+  * @param {import('../typings/Structures/Channel').createChannelData} options The options to create the GuildChannel with
+  * @param {string|undefined} reason The reason of the channel creation
+  * @return {Promise<import('../typings/Structures/Channel').Channel>} Channel Instance
+  * @example
+  *  const channel = await client.channels.create({name: "test"}, "I like this new channel");
+  *     
+  */
   async create(options = {}, reason) {
     options = transformOptions(options);
     if (options.permissionOverwrites) {
@@ -119,11 +119,73 @@ class Channel extends DestructObject {
     return new PermissionOverwrites(this.client, {}, { channel: this, permissionOverwrites: cache });
   }
 
-  // @todo
-  permissionsFor({ id }) {
-    return this.permissionOverwrites.get(id);
+  // Credits to Discord.js v13 | https://github.com/discordjs/discord.js/blob/988a51b7641f8b33cc9387664605ddc02134859d/src/structures/GuildChannel.js#L159
+  permissionsFor(resource, type, checkAdmin = true) {
+    if (type !== 'role' || type !== 'member') throw new Error('The provided resource has to be one of the type: role, member');
+
+    if (type === 'role') {
+      if (checkAdmin && resource.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
+        return new Permissions(Permissions.ALL).freeze();
+      }
+
+      const everyoneOverwrites = this.permissionOverwrites.cache.get(this.guild.id);
+      const roleOverwrites = this.permissionOverwrites.cache.get(resource.id);
+
+      return resource.permissions
+        .remove(everyoneOverwrites?.deny ?? 0n)
+        .add(everyoneOverwrites?.allow ?? 0n)
+        .remove(roleOverwrites?.deny ?? 0n)
+        .add(roleOverwrites?.allow ?? 0n)
+        .freeze();
+    }
+
+    if (type === 'member') {
+      const member = resource;
+      if (checkAdmin && member.id === this.guild.ownerId) return new Permissions(Permissions.ALL).freeze();
+
+      const roles = member.roles.cache;
+      const permissions = new Permissions(roles.map(role => role.permissions));
+
+      if (checkAdmin && permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
+        return new Permissions(Permissions.ALL).freeze();
+      }
+
+      const overwrites = this.overwritesFor(member, roles);
+
+      return permissions
+        .remove(overwrites.everyone?.deny ?? Permissions.defaultBit)
+        .add(overwrites.everyone?.allow ?? Permissions.defaultBit)
+        .remove(overwrites.roles.length > 0 ? overwrites.roles.map(role => role.deny) : Permissions.defaultBit)
+        .add(overwrites.roles.length > 0 ? overwrites.roles.map(role => role.allow) : Permissions.defaultBit)
+        .remove(overwrites.member?.deny ?? Permissions.defaultBit)
+        .add(overwrites.member?.allow ?? Permissions.defaultBit)
+        .freeze();
+    }
   }
 
+  // Credits to Discord.js v13 | https://github.com/discordjs/discord.js/blob/988a51b7641f8b33cc9387664605ddc02134859d/src/structures/GuildChannel.js#L166
+  overwritesFor(member, roles = null) {
+    roles ??= member.roles.cache;
+    const roleOverwrites = [];
+    let memberOverwrites;
+    let everyoneOverwrites;
+
+    for (const overwrite of this.permissionOverwrites.cache.values()) {
+      if (overwrite.id === this.guild.id) {
+        everyoneOverwrites = overwrite;
+      } else if (roles.has(overwrite.id)) {
+        roleOverwrites.push(overwrite);
+      } else if (overwrite.id === member.id) {
+        memberOverwrites = overwrite;
+      }
+    }
+
+    return {
+      everyone: everyoneOverwrites,
+      roles: roleOverwrites,
+      member: memberOverwrites,
+    };
+  }
 
   //Webhook
   async createWebhook(options = {}) {
