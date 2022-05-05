@@ -65,7 +65,6 @@ class permissionOverwrites extends DestructObject {
         const channelId = options.channelId || this.channel?.id;
 
         options.id = overwriteId;
-        console.log(options)
         return this.client.helpers.editChannelOverwrite(channelId, options);
     }
 
