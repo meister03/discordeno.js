@@ -15,14 +15,16 @@ class Permissions {
   }
 
   transform(bit) {
+    if(bit?.bits !== undefined) bit = bit.bits;
     const defaultBit = BigInt(0);
     if (Array.isArray(bit)) return bit.map((p) => this.transform(p)).reduce((prev, p) => prev | p, defaultBit);
-
+    
     if (typeof defaultBit === typeof bit && bit >= defaultBit) return bit;
     if (typeof bit === "string") {
       if (typeof Permissions.FLAGS[bit] !== "undefined") return Permissions.FLAGS[bit];
       if (!isNaN(bit)) return typeof defaultBit === "bigint" ? BigInt(bit) : Number(bit);
     }
+    console.log(bit)
     throw new Error("Invalid Permission Bit");
   }
 

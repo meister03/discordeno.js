@@ -121,7 +121,7 @@ class Channel extends DestructObject {
 
   // Credits to Discord.js v13 | https://github.com/discordjs/discord.js/blob/988a51b7641f8b33cc9387664605ddc02134859d/src/structures/GuildChannel.js#L159
   permissionsFor(resource, type, checkAdmin = true) {
-    if (type !== 'role' || type !== 'member') throw new Error('The provided resource has to be one of the type: role, member');
+    if (type !== 'role' && type !== 'member') throw new Error('The provided resource has to be one of the type: role, member');
 
     if (type === 'role') {
       if (checkAdmin && resource.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
@@ -153,12 +153,12 @@ class Channel extends DestructObject {
       const overwrites = this.overwritesFor(member, roles);
 
       return permissions
-        .remove(overwrites.everyone?.deny ?? Permissions.defaultBit)
-        .add(overwrites.everyone?.allow ?? Permissions.defaultBit)
-        .remove(overwrites.roles.length > 0 ? overwrites.roles.map(role => role.deny) : Permissions.defaultBit)
-        .add(overwrites.roles.length > 0 ? overwrites.roles.map(role => role.allow) : Permissions.defaultBit)
-        .remove(overwrites.member?.deny ?? Permissions.defaultBit)
-        .add(overwrites.member?.allow ?? Permissions.defaultBit)
+        .remove(overwrites.everyone?.deny ?? 0n)
+        .add(overwrites.everyone?.allow ?? 0n)
+        .remove(overwrites.roles.length > 0 ? overwrites.roles.map(role => role.deny) : 0n)
+        .add(overwrites.roles.length > 0 ? overwrites.roles.map(role => role.allow) : 0n)
+        .remove(overwrites.member?.deny ?? 0n)
+        .add(overwrites.member?.allow ?? 0n)
         .freeze();
     }
   }
