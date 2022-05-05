@@ -35,7 +35,7 @@ class permissionOverwrites extends DestructObject {
 
         options = transformPermissionOverwrites(options);
 
-        const overwrites = {allow: [...options.allow], deny: [...options.deny]};
+        const overwrites = {allow: [...options.allow], deny: [...options.deny], type: options.type};
 
         if(options.allow){
             existing.allow.forEach(x => {
@@ -60,11 +60,13 @@ class permissionOverwrites extends DestructObject {
         options.deny = overwrites.deny;
         delete options.neutral;
         
-        if(!options.type) options.type = this.type;
+        if(!options.type) options.type = overwrites.type;
         
         const channelId = options.channelId || this.channel?.id;
 
-        return this.client.helpers.editChannelOverwrite(channelId, overwriteId, options);
+        options.id = overwriteId;
+        console.log(options)
+        return this.client.helpers.editChannelOverwrite(channelId, options);
     }
 
     async create(...args){
