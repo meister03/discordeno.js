@@ -19,13 +19,12 @@ class Collection extends BaseCollection {
 
   _set(key, value, options = {}) {
     if (typeof key === "string") key = BigInt(key);
-
     if (options.removeProps === undefined) options.removeProps = true;
     if (this.properties?._cacheAll) options.removeProps = false;
     const v = options.removeProps
       ? this.properties
         .reduce((obj2, key) => {
-          if (key in value && value[key]) obj2[key] = value[key];
+          if (value[key]) obj2[key] = value[key];
           return obj2;
         }, {})
       : value;
@@ -248,9 +247,8 @@ class Collection extends BaseCollection {
       //v.members = old.members;
       delete v.members;
     }
-
     Object.keys(v).forEach((k) => {
-      if (k in old && v[k]) old[k] = v[k];
+      if (v[k]) old[k] = v[k];
     });
     return this._set(k, old);
   }
@@ -344,7 +342,7 @@ class CloneCollection extends BaseCollection {
     const oldValue = this.cache._get(editKey, { raw: true });
     if (!oldValue) return this.set(key, value);
     Object.keys(value).forEach((k) => {
-      if (k in oldValue && value[k]) oldValue[k] = value[k];
+      if (value[k]) oldValue[k] = value[k];
     });
     if(oldValue.user) delete oldValue.user;
     return this.set(key, oldValue);
