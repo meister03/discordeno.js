@@ -80,7 +80,9 @@ class Component {
   }
 
   setEmoji(emoji) {
-    this.emoji = getEmoji(emoji);
+    if(typeof emoji === "object") {
+      this.emoji = getEmoji(emoji);
+    } else this.emoji = emoji;
     return this;
   }
 

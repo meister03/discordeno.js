@@ -87,7 +87,7 @@ class ChannelManager {
     }
     const channel = await this.client.helpers.getChannel(channelId);
 
-    return this.forge(channel, { guild: this })
+    return this.forge(channel, { guild: this.guild })
   }
 
   /**
