@@ -40,6 +40,7 @@ class Component {
     this.max_length = options.max_length ?? options.maxLength;
     this.required = options.required;
   }
+  static CONSTANTS = Constants;
 
   setType(type) {
     if (typeof type === "string") {
