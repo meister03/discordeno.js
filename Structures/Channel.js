@@ -99,7 +99,7 @@ class Channel extends DestructObject {
   }
 
   async bulkDelete(options = {}, reason) {
-    options.map(x => BigInt(x?.id ? x.id : x));
+    options.map(x => this.client.transformers.snowflake(x?.id ? x.id : x));
     const res = await this.client.helpers.deleteMessages(this.id, options, reason);
     return true;
   }

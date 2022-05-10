@@ -14,7 +14,7 @@ class Guilds {
   forge(data = {}) {
     data = transformOptions(data);
 
-    if (typeof data.id === "string") data.id = BigInt(data.id);
+    if (typeof data.id === "string") data.id = this.client.transformers.snowflake(data.id);
     if (this.client.guilds.cache?.has(data.id)) {
       const v = this.client.guilds.cache?._get(data.id);
       const members = v.members;

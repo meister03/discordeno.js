@@ -30,7 +30,7 @@ function GUILD_DELETE(bot, packet, shardId) {
 
 function GUILD_MEMBERS_CHUNK(bot, packet, shardId) {
   const guild = bot.guilds.cache.base({ id: packet.d.guild_id });
-  guild.members = packet.d.members.map((x) => bot.transformers.member(bot, x, packet.d.guild_id, BigInt(x.user.id)));
+  guild.members = packet.d.members.map((x) => bot.transformers.member(bot, x, packet.d.guild_id, bot.transformers.snowflake(x.user.id)));
   return bot.guilds.cache.patch(packet.d.id, guild);
 }
 
@@ -70,7 +70,7 @@ function GUILD_MEMBER_ADD(bot, packet, shardId) {
   guild.memberCount++;
 
   guild.members = [
-    bot.transformers.member(bot, packet.d, packet.d.guild_id, BigInt(packet.d.user.id)),
+    bot.transformers.member(bot, packet.d, packet.d.guild_id, bot.transformers.snowflake(packet.d.user.id)),
   ];
   return bot.guilds.cache.patch(guild.id, guild);
 }
@@ -82,13 +82,13 @@ function GUILD_MEMBER_REMOVE(bot, packet, shardId) {
   if (!guild.memberCount) guild.memberCount = 0;
   guild.memberCount--;
 
-  guild.members?.delete(BigInt(packet.d.user.id));
+  guild.members?.delete(bot.transformers.snowflake(packet.d.user.id));
   return bot.guilds.cache._set(guild.id, guild);
 }
 
 function GUILD_MEMBER_UPDATE(bot, packet, shardId) {
   const guild = bot.guilds.cache.base(packet.d.guild_id);
-  const member = bot.transformers.member(bot, packet.d, packet.d.guild_id, BigInt(packet.d.user.id));
+  const member = bot.transformers.member(bot, packet.d, packet.d.guild_id, bot.transformers.snowflake(packet.d.user.id));
   guild.members = [member];
   //console.log(member.roles, guild)
   return bot.guilds.cache.patch(guild.id, guild);
@@ -96,7 +96,7 @@ function GUILD_MEMBER_UPDATE(bot, packet, shardId) {
 
 function GUILD_ROLE_CREATE(bot, packet, shardId) {
   return; //no op
-  const guild_id = BigInt(packet.d.guild_id);
+  const guild_id = bot.transformers.snowflake(packet.d.guild_id);
 
   const guild = bot.guilds.cache.base({ id: guild_id }, { roles: true });
 
@@ -112,7 +112,7 @@ function GUILD_ROLE_UPDATE(bot, packet, shardId) {
     guild = bot.guilds.cache.base(guild, { roles: true });
   }
 
-  const role = bot.transformers.role(bot, { role: packet.d.role, guildId: BigInt(packet.d.guild_id) });
+  const role = bot.transformers.role(bot, { role: packet.d.role, guildId: bot.transformers.snowflake(packet.d.guild_id) });
   guild.roles.patch(role.id, role);
   return bot.guilds.cache._set(guild.id, guild);
 }
@@ -131,7 +131,7 @@ function CHANNEL_CREATE(bot, packet, shardId) {
   return; //no op
   const guild = bot.guilds.cache.base({ id: packet.d.guild_id }, { channels: true });
 
-  guild.channels = [bot.transformers.channel(bot, { channel: packet.d, guildId: BigInt(packet.d.guild_id) })];
+  guild.channels = [bot.transformers.channel(bot, { channel: packet.d, guildId: bot.transformers.snowflake(packet.d.guild_id) })];
   return bot.guilds.cache.patch(guild.id, guild);
 }
 
@@ -143,7 +143,7 @@ function CHANNEL_UPDATE(bot, packet, shardId) {
     guild = bot.guilds.cache.base(guild, { channels: true });
   }
 
-  const channel = bot.transformers.channel(bot, { channel: packet.d, guildId: BigInt(packet.d.guild_id) });
+  const channel = bot.transformers.channel(bot, { channel: packet.d, guildId: bot.transformers.snowflake(packet.d.guild_id) });
   guild.channels.patch(channel.id, channel);
   return bot.guilds.cache._set(guild.id, guild);
 }
@@ -161,7 +161,7 @@ function CHANNEL_DELETE(bot, packet, shardId) {
 function THREAD_CREATE(bot, packet, shardId) {
   return; //no op
   const guild = bot.guilds.cache.base({ id: packet.d.guild_id }, { threads: true });
-  guild.threads = bot.transformers.channel(bot, { channel: packet.d, guildId: BigInt(packet.d.guild_id) });
+  guild.threads = bot.transformers.channel(bot, { channel: packet.d, guildId: bot.transformers.snowflake(packet.d.guild_id) });
   return bot.guilds.cache.patch(guild.id, guild);
 }
 
@@ -173,7 +173,7 @@ function THREAD_UPDATE(bot, packet, shardId) {
     guild = bot.guilds.cache.base(guild, { channels: true });
   }
 
-  const channel = bot.transformers.channel(bot, { channel: packet.d, guildId: BigInt(packet.d.guild_id) });
+  const channel = bot.transformers.channel(bot, { channel: packet.d, guildId: bot.transformers.snowflake(packet.d.guild_id) });
   guild.threads.patch(channel.id, channel);
   return bot.guilds.cache._set(guild.id, guild);
 }

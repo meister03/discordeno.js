@@ -12,6 +12,9 @@ module.exports = {
             if (typeof options === "string") options = { reason: options };
         }
         if (typeof options !== "object") options = { id: options };
+
+        return options;
+
         if (typeof options.id === "string") options.id = BigInt(options.id);
 
         if (options.guildId) options.guildId = BigInt(options.guildId);

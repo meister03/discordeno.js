@@ -34,6 +34,14 @@ class CacheManager {
     const { guild, user, member, channel, message, role, emoji, embed } = bot.transformers;
     const { handleDiscordPayload } = bot.gateway;
 
+    bot.transformers.snowflake = function (id) {
+      return id;
+    }
+
+    bot.utils.snowflakeToBigint = function (id) {
+      return id;
+    }
+
     bot.gateway.handleDiscordPayload = function (_bot, packet, shardId) {
       //console.log(packet.t);
       if (Actions[packet.t]) Actions[packet.t](bot, packet, shardId);
@@ -51,7 +59,7 @@ class CacheManager {
       const result = guild(bot, payload);
       if (payload.guild) {
         result.channels = payload.guild.channels?.map((x) => channel(bot, { channel: x, guildId: result.id }));
-        result.members = payload.guild.members?.map((x) => member(bot, x, result.id, BigInt(x.user.id)));
+        result.members = payload.guild.members?.map((x) => member(bot, x, result.id, bot.transformers.snowflake(x.user.id)));
 
         result.roles = roles?.map((x) => role(bot, { role: x, guildId: result.id }));
         result.emojis = emojis?.map((x) => emoji(bot, x));
@@ -96,7 +104,7 @@ class CacheManager {
       }
 
       if (payload.member) {
-        bot.transformers.member(bot, payload.member, BigInt(payload.guild_id), BigInt(payload.author.id));
+        bot.transformers.member(bot, payload.member, bot.transformers.snowflake(payload.guild_id), bot.transformers.snowflake(payload.author.id));
       }
 
       if (payload.mentions) {

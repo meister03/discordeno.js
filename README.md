@@ -19,7 +19,7 @@ We built the interface so that it can be used to **switch between different libr
 
 Of course, a migration would include breaking changes, as we decided to improve the coding experience by simplifying it while incorporating high coding standards
 
-As of now, the biggest change is that ids use `BigInts` instead of the usual strings. This is because they use less memory. Therefore, depending on the database, you would have to stringfying the id before saving the document
+~~As of now, the biggest change is that ids use `BigInts` instead of the usual strings. This is because they use less memory. Therefore, depending on the database, you would have to stringfying the id before saving the document~~ The snowflake transformer has been overwritten to use strings instead of BigInts.
 
 **Common changes are listed in the [gist](https://gist.github.com/meister03/2f8697512e039f1081b16d245bbcc6df), which is updated on the fly**
 

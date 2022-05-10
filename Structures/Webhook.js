@@ -31,7 +31,7 @@ class Webhook extends DestructObject {
     const id = options.id || this.id;
     const token = options.token || this.token;
 
-    const messageId = typeof options.messageId === "string" ? BigInt(options.messageId) : options.messageId;
+    const messageId = typeof options.messageId === "string" ? this.client.transformers.snowflake(options.messageId) : options.messageId;
 
     const message = await this.client.helpers.getWebhookMessage(id,token,messageId, options);
     return this.client.messages ? this.client.messages.forge(message) : message;
@@ -44,7 +44,7 @@ class Webhook extends DestructObject {
     const id = options.id || this.id;
     const token = options.token || this.token;
 
-    const messageId = typeof options.messageId === "string" ? BigInt(options.messageId) : options.messageId;
+    const messageId = typeof options.messageId === "string" ? this.client.transformers.snowflake(options.messageId) : options.messageId;
     options.messageId = messageId;
 
     const message = await this.client.helpers.editWebhookMessage(id, token, options);

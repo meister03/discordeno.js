@@ -18,18 +18,18 @@ class permissionOverwrites extends DestructObject {
     }
 
     has(overwriteId) {
-        overwriteId = BigInt(overwriteId);
+        overwriteId = this.client.transformers.snowflake(overwriteId);
         return this.cache.has(overwriteId);
     }
 
     get(overwriteId) {
-        overwriteId = BigInt(overwriteId);
+        overwriteId = this.client.transformers.snowflake(overwriteId);
         return this.cache.get(overwriteId);
     }
 
     async edit(overwriteId, options = {}) {
         if(!overwriteId) overwriteId = options.overwriteId || options.id || this.overwriteId;
-        overwriteId = BigInt(overwriteId);
+        overwriteId = this.client.transformers.snowflake(overwriteId);
 
         const existing = this.cache?.get(overwriteId) ?? {allow: this.allow ?? [], deny: this.deny ?? [], type: this.type || 'role', id: this.overwriteId};
 
@@ -69,7 +69,7 @@ class permissionOverwrites extends DestructObject {
     }
 
     async create(...args){
-        this.edit(...args);
+        return this.edit(...args);
     }
 
     delete(options = {}) {
