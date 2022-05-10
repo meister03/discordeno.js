@@ -262,7 +262,7 @@ class CloneCollection extends BaseCollection {
     this.memberGuildId = options.memberGuildId;
     if (options.memberGuildId) {
       this.createKey = (k) => {
-        return this.client.transformers.snowflake(`${k}${options.memberGuildId}`);
+        return this.cache.client.transformers.snowflake(`${k}${options.memberGuildId}`);
       };
     } else this.createKey = (k) => k;
   }
@@ -279,7 +279,7 @@ class CloneCollection extends BaseCollection {
   }
 
   _get(key) {
-    if (typeof key === "string") key = this.client.transformers.snowflake(key);
+    if (typeof key === "string") key = this.cache.client.transformers.snowflake(key);
     key = this.createKey(key);
     return this.cache._get(key, { transformedKey: true, raw: true });
   }
@@ -294,7 +294,7 @@ class CloneCollection extends BaseCollection {
 
   delete(key) {
     // if (this.memberGuildId) console.log('set', key, super.has(key));
-    if (typeof key === "string") key = this.client.transformers.snowflake(key);
+    if (typeof key === "string") key = this.cache.client.transformers.snowflake(key);
     super.delete(key);
     key = this.createKey(key);
     return this.cache.delete(key);
@@ -335,7 +335,7 @@ class CloneCollection extends BaseCollection {
 
   patch(key, value) {
     if (!value) return null;
-    if (typeof key === "string") key = this.client.transformers.snowflake(key);
+    if (typeof key === "string") key = this.cache.client.transformers.snowflake(key);
 
     const editKey = this.createKey(key);
     if (!this.cache.has(editKey)) return this.set(key, value);
