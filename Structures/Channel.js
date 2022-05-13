@@ -94,6 +94,10 @@ class Channel extends DestructObject {
       options.file = transformAttachments(options.attachments || options.files);
     }
 
+    if(!options.allowedMentions){
+      options.allowedMentions = client.options.allowedMentions;
+    }
+
     const msg = await this.client.helpers.sendMessage(this.id, options);
     return this.client.messages.forge(msg, { channel: this, guild: this.guild });
   }

@@ -192,6 +192,11 @@ class CacheManager {
 
 
   static enableCachePlugin(client, options = {}) {
+    if(options.allowedMentions) {
+      if(options.allowedMentions === true) {
+        client.options.allowedMentions = {parse: ['roles', 'users', 'everyone'], repliedUser: true};
+      } else client.options.allowedMentions = options.allowedMentions;
+    }
     
     const channelOptions = createOptions(client, options.channels, Channel, "channel");
     client.channels = new ChannelManager(client);
