@@ -192,6 +192,7 @@ class CacheManager {
 
 
   static enableCachePlugin(client, options = {}) {
+    client.options = {};
     if(options.allowedMentions) {
       if(options.allowedMentions === true) {
         client.options.allowedMentions = {parse: ['roles', 'users', 'everyone'], repliedUser: true};
