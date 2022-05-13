@@ -95,7 +95,7 @@ class Channel extends DestructObject {
     }
 
     if(!options.allowedMentions){
-      options.allowedMentions = client.options.allowedMentions;
+      options.allowedMentions = this.client.options.allowedMentions;
     }
 
     const msg = await this.client.helpers.sendMessage(this.id, options);
