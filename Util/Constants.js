@@ -18,11 +18,11 @@ exports.Colors = {
     GREY: 0x95a5a6,
     GREYPLE: 0x99aab5,
     BLURPLE: 0x5865f2,
-  }
+}
 
-  exports.DISCORD_EPOCH = 1_420_070_400_000;
+exports.DISCORD_EPOCH = 1_420_070_400_000;
 
-  exports.INTERACTIONS = {
+exports.INTERACTIONS = {
     DEFERRED_CHANNEL_MESSAGE_WITH_SOURCE: 5,
     CHANNEL_MESSAGE_WITH_SOURCE: 4,
     DEFERRED_UPDATE_MESSAGE: 6,
@@ -37,4 +37,13 @@ exports.Colors = {
         MESSAGE_COMPONENT: 3,
         APPLICATION_COMMAND_AUTOCOMPLETE: 4,
     }
+};
+
+exports.ACTIVITIES = {
+    PLAYING: 0,
+    STREAMING: 1,
+    LISTENING: 2,
+    WATCHING: 3,
+    CUSTOM: 4,
+    COMPETETING: 5,
 }

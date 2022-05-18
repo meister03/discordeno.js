@@ -2,6 +2,7 @@ const Discordeno = require("discordeno");
 module.exports = {
   /// Managers:
   ...Discordeno,
+  Client: require("./Structures/Client"),
   MessageManager: require("./Managers/MessageManager"),
   ChannelManager: require("./Managers/ChannelManager"),
   GuildManager: require("./Managers/GuildManager"),
@@ -25,7 +26,6 @@ module.exports = {
   Emoji: require("./Structures/Emoji"),
   Component: require("./Structures/Component"),
   Embed: require("./Structures/Embed"),
-  Emoji: require("./Structures/Emoji"),
   Interaction: require("./Structures/Interaction"),
   Webhook: require("./Structures/Webhook"),
   Websocket: require("./Structures/Websocket"),
