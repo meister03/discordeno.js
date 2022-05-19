@@ -59,8 +59,5 @@ class Guild extends DestructObject {
     return SnowFlake(this.id).timestamp;
   }
 
-  get premiumSubscriberRole(){
-    return [...this.roles.cache.values()].filter(x => x.toggles?.premiumSubscriber)[0];
-  }
 }
 module.exports = Guild;
