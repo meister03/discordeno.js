@@ -1,6 +1,6 @@
 {
   "name": "discordeno.js",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A wrapper around Discordeno that comes with a Djs-like interface and a lot of other features.",
   "main": "index.js",
   "types": "./typings.d.ts",

@@ -1,6 +1,7 @@
 // @ts-check
 const DestructObject = require("./DestructObject");
 const {transformOptions} = require("../Util/transformOptions");
+const {SnowFlake} = require("../Util/Util");
 
 class User extends DestructObject {
   /** 
@@ -24,6 +25,10 @@ class User extends DestructObject {
     options = transformOptions(options);
     const channel = await this.client.helpers.getDmChannel(this.id);
     return this.client.helpers.sendMessage(channel.id, options);
+  }
+
+  get createdTimestamp() {
+    return SnowFlake(this.id).timestamp;
   }
 }
 module.exports = User;
