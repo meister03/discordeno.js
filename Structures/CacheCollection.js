@@ -7,6 +7,7 @@ class Collection extends BaseCollection {
     this.context = options.context;
     this.properties = options.properties;
     this.transformerClass = options.transformerClass;
+    this.forceSetFilter = options.forceSetFilter ||  (() => true);
   }
 
   has(k) {
@@ -28,7 +29,8 @@ class Collection extends BaseCollection {
           return obj2;
         }, {})
       : value;
-    return super.set(key, v);
+    options.forceSet = this.forceSetFilter(key, value, options); 
+    return super.set(key, v, options);
   }
 
   _get(key, options = {}) {

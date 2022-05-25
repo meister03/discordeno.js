@@ -59,5 +59,18 @@ class Guild extends DestructObject {
     return SnowFlake(this.id).timestamp;
   }
 
+  toJSON(options = {}){
+    if(!options.raw) return super.toJSON();
+    const data = {
+      ...super.toJSON(),
+      roles: [...this.roles.cache.values()],
+      channels: [...this.channels.cache.values()],
+      members: [...this.members.cache.values()],
+      emojis: [...this.emojis.cache.values()],
+    }
+    if(this.stageInstances) data.stageInstances = this.stageInstances.values();
+    return data;
+  }
+
 }
 module.exports = Guild;

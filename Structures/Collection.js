@@ -16,8 +16,9 @@ class Collection extends Discord.Collection{
         return super.get(key);
     }
 
-    set(key, value){
+    set(key, value, options){
         if(typeof key === 'string' && this.convertKey) key = BigInt(key);
+        if(options?.forceSet) return super.forceSet(key, value);
         return super.set(key, value);
     }
 

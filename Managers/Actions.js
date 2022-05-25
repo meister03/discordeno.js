@@ -272,7 +272,7 @@ function MESSAGE_REACTION_REMOVE_EMOJI(bot, packet, shardId) {
   if (!channel) return;
   const message = channel.messages?._get(packet.d.message_id);
   if (!message) return;
-  message.reactions = message.reactions.filter((r) => r.emoji.id !== packet.d.emoji.id);
+  message.reactions = message.reactions?.filter((r) => r.emoji.id !== packet.d.emoji.id);
   channel.messages.patch(message.id, message);
   return bot.channels.cache._set(channel.id, channel);
 }
