@@ -7,7 +7,7 @@ class Collection extends BaseCollection {
     this.context = options.context;
     this.properties = options.properties;
     this.transformerClass = options.transformerClass;
-    this.forceSetFilter = options.forceSetFilter ||  (() => true);
+    this.forceSetFilter = options.forceSetFilter ||  (() => false);
   }
 
   has(k) {
