@@ -240,7 +240,7 @@ function createOptions(client, options = {}, transformerClass, context) {
     ...options,
     client,
     context,
-    properties: options.properties ?? createFakePropertyOptions(),
+    properties: options.properties ? addBaseProperties(options.properties) : createFakePropertyOptions(),
     transformerClass: transformerClass ?? options.transformerClass,
   };
 }
@@ -250,4 +250,11 @@ function createFakePropertyOptions() {
     includes: (str) => true,
     _cacheAll: true,
   };
+}
+
+function addBaseProperties(properties) {
+  //remove duplicates
+  properties = [...properties, "id", "guildId"];
+  properties = [...new Set(properties)];
+  return properties;
 }
