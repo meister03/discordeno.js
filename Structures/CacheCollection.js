@@ -289,14 +289,13 @@ class CloneCollection extends BaseCollection {
 
   set(key, value) {
     super.set(key, true);
-    //if (this.memberGuildId) console.log('set', key, super.has(key));
+    if(this.forceSetFilter(key, value)) super.forceSet(key, true);
     if (typeof value !== "object") return true;
     key = this.createKey(key);
     return this.cache.set(key, value);
   }
 
   delete(key) {
-    // if (this.memberGuildId) console.log('set', key, super.has(key));
     if (typeof key === "string") key = this.cache.client.transformers.snowflake(key);
     super.delete(key);
     key = this.createKey(key);
