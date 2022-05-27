@@ -289,7 +289,7 @@ class CloneCollection extends BaseCollection {
 
   set(key, value) {
     super.set(key, true);
-    if(this.forceSetFilter(key, value)) super.forceSet(key, true);
+    if(this.cache.forceSetFilter(key, value)) super.forceSet(key, true);
     if (typeof value !== "object") return true;
     key = this.createKey(key);
     return this.cache.set(key, value);
