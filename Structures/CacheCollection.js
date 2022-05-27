@@ -3,6 +3,7 @@ const BaseCollection = require('./Collection')
 class Collection extends BaseCollection {
   constructor(options = {}) {
     super(options);
+    this._options = options;
     this.client = options.client;
     this.context = options.context;
     this.properties = options.properties;
@@ -259,7 +260,7 @@ module.exports = Collection;
 
 class CloneCollection extends BaseCollection {
   constructor(options = {}) {
-    super();
+    super(options.cache?._options);
     this.cache = options.cache;
     this.memberGuildId = options.memberGuildId;
     if (options.memberGuildId) {
