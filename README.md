@@ -67,9 +67,15 @@ const client = Discord.enableCachePlugin(baseBot, {
     },
     users: {
         properties: ['id', 'username', 'discriminator'],
+        maxSize: 100,
     },
     members: {
-        properties: ['id', 'roles', 'name'],
+        properties: ['id', 'roles', 'nickname'],
+        forceSetFilter: (key, value) => {
+                if (key === `${client.id}`) return true; // Sub Collection on Guild Level, pass when client user is the member
+                if (key === `${client.id}${value?.guildId}`) return true; // Main Collection, pass when client user is the member of the guild
+                return false;
+        }
     },
     emojis: {
         properties: ['id', 'name'],
@@ -79,7 +85,7 @@ const client = Discord.enableCachePlugin(baseBot, {
     },
     messages: {
         properties: ['id', 'channelId', 'type'],
-        .//transformerClass: Discord.Message
+        //transformerClass: Discord.Message
     },
     stageInstances: {
         properties: ['id', 'guildId', 'type'],
