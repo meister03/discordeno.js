@@ -9,6 +9,7 @@ class Role extends DestructObject {
  */
   constructor(client, role = {}, options = {}) {
     super(role, { "permissions": true });
+    console.log(options.guild, client.guilds.forge({ id: role.guildId }))
     if (options.guild) this.guild = options.guild;
     else this.guild = client.guilds.forge({ id: role.guildId });
     this.client = client;
