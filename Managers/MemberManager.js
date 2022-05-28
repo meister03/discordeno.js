@@ -22,7 +22,7 @@ class Members {
         return options.guild.members.cache.get(data.id, { guild: options.guild, user });
       }
     }
-    return new Member(this.client, data, { guild: options.guild });
+    return new Member(this.client, data, { guild: options.guild, user: options.user });
   }
 
   forgeManager(data = {}, options = {}) {
