@@ -11,8 +11,8 @@ class Message extends DestructObject {
     if (options.guild) this.guild = options.guild;
     else this.guild = client.guilds.forge({ id: this.guildId });
     this.channel = this.guild.channels.forge({ id: this.channelId }, { guild: this.guild });
-    this.member = this.guild.members.forge({ ...message.member, id: this.authorId }, { guild: this.guild });
     this.author = client.users.forge(message.author);
+    this.member = this.guild.members.forge({ ...message.member, id: this.authorId }, { guild: this.guild, user: message.author });
   }
 
   async edit(options) {
