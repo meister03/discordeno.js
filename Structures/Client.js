@@ -24,7 +24,7 @@ class Client extends Discord.createBot {
         };
 
         this._setApplicationCommands = async (commands, guildId, commandId) => {
-            if(typeof commands === 'object'){
+            if (!Array.isArray(commands)) {
                 return await this.helpers.upsertApplicationCommand(commandId, transformApplicationCommand(commands), guildId);
             }
             const ddCommands = [];
