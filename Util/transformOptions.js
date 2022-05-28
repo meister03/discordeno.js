@@ -1,6 +1,5 @@
-// @ts-check
 const Permissions = require('../Structures/Permissions');
-const { permissionOverwritesTypes } = require('../Util/Constants');
+const { permissionOverwritesTypes, applicationCommandTypes, applicationCommandOptionTypes } = require('../Util/Constants');
 const { Blob } = require('buffer');
 module.exports = {
 
@@ -28,6 +27,24 @@ module.exports = {
         if (options.parentId) options.parentId = BigInt(options.parentId);
 
         return options;
+    },
+
+    transformApplicationCommand(options) {
+        return {
+            ...options,
+            type: applicationCommandTypes[options.type] || options.type,
+            options: this.transformApplicationCommandOptions(options.options)
+        }
+    },
+
+    transformApplicationCommandOptions(options) {
+        return options.map(option => {
+            return {
+                ...option,
+                type: applicationCommandOptionTypes[option.type] || option.type,
+                options: option.options ? this.transformApplicationCommandOptions(option.options) : undefined,
+            }
+        })
     },
 
     transformPermissionOverwrites(permissionOverwrites) {
@@ -79,7 +96,6 @@ module.exports = {
     transformAttachments(attachments) {
         return attachments.map(a => {
             const file = { blob: new Blob((a.blob ?? a.attachment)), name: a.name };
-            console.log(file);
             return file;
         })
     }
