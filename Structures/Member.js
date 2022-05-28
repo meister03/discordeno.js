@@ -113,7 +113,7 @@ class Member extends DestructObject {
 module.exports = Member;
 
 function getRoles(client, roles, guild) {
-  if (!roles) return new Collection();
+  if (!roles || typeof roles !== 'array') return new Collection();
   const memberRoles = new Collection();
   roles.forEach((m) => {
     const role = client.roles.forge({ id: m }, { guild: guild });
