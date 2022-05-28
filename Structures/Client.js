@@ -36,7 +36,7 @@ class Client extends Discord.createBot {
             this.user = new User(this, options);
             this.user.setActivity = this._setActivity;
             // @todo create application class
-            this.application = { commands: { cache: { set: this._setApplicationCommands } } };
+            this.application = { commands: { set: this._setApplicationCommands } };
             return this.user;
         }
     }
