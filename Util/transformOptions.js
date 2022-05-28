@@ -37,15 +37,7 @@ module.exports = {
         }
     },
 
-    transformApplicationCommandOptions(options) {
-        return options.map(option => {
-            return {
-                ...option,
-                type: applicationCommandOptionTypes[option.type] || option.type,
-                options: option.options ? transformApplicationCommandOptions(option.options) : undefined,
-            }
-        })
-    },
+    transformApplicationCommandOptions,
 
     transformPermissionOverwrites(permissionOverwrites) {
         let isArray = true;
@@ -100,4 +92,14 @@ module.exports = {
         })
     }
 
+}
+
+function transformApplicationCommandOptions(options) {
+    return options.map(option => {
+        return {
+            ...option,
+            type: applicationCommandOptionTypes[option.type] || option.type,
+            options: option.options ? transformApplicationCommandOptions(option.options) : undefined,
+        }
+    })
 }
