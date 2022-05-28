@@ -1,5 +1,5 @@
 const Permissions = require('../Structures/Permissions');
-const { permissionOverwritesTypes, applicationCommandTypes, applicationCommandOptionTypes } = require('../Util/Constants');
+const { permissionOverwritesTypes, applicationCommandTypes, applicationCommandOptionsTypes } = require('../Util/Constants');
 const { Blob } = require('buffer');
 module.exports = {
 
@@ -98,7 +98,7 @@ function transformApplicationCommandOptions(options) {
     return options.map(option => {
         return {
             ...option,
-            type: applicationCommandOptionTypes[option.type] || option.type,
+            type: applicationCommandOptionsTypes[option.type] || option.type,
             options: option.options ? transformApplicationCommandOptions(option.options) : undefined,
         }
     })
