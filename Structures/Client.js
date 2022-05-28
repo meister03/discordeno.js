@@ -29,7 +29,6 @@ class Client extends Discord.createBot {
             }
             const ddCommands = [];
             commands.forEach(x => ddCommands.push(transformApplicationCommand(x)));
-            console.log(ddCommands[0])
             return await this.helpers.upsertApplicationCommands(ddCommands, guildId, commandId);
         }
 
