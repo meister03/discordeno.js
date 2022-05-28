@@ -33,7 +33,7 @@ module.exports = {
         return {
             ...options,
             type: applicationCommandTypes[options.type] || options.type,
-            options: this.transformApplicationCommandOptions(options.options)
+            options: transformApplicationCommandOptions(options.options)
         }
     },
 
@@ -42,7 +42,7 @@ module.exports = {
             return {
                 ...option,
                 type: applicationCommandOptionTypes[option.type] || option.type,
-                options: option.options ? this.transformApplicationCommandOptions(option.options) : undefined,
+                options: option.options ? transformApplicationCommandOptions(option.options) : undefined,
             }
         })
     },
