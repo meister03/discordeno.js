@@ -24,10 +24,14 @@ class Member extends DestructObject {
 
     this.user = client.users.forge(member.user);
 
+    // Shallow Copy RoleIds befor overwrite
+    const roleIds = member.roles.slice(0);
+    console.log(roleIds)
+
     this.roles = client.roles.forgeManager({}, {
       guild: options.guild,
       member: this,
-      roles: getRoles(client, member.roles, this.guild),
+      roles: getRoles(client, roleIds, this.guild),
     });
   }
 
@@ -113,7 +117,8 @@ class Member extends DestructObject {
 module.exports = Member;
 
 function getRoles(client, roles, guild) {
-  if (!roles || typeof roles !== 'array') return new Collection();
+  if (!roles) return new Collection();
+  console.log(typeof roles, roles)
   const memberRoles = new Collection();
   roles.forEach((m) => {
     const role = client.roles.forge({ id: m }, { guild: guild });
