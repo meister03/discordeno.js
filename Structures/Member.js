@@ -26,7 +26,6 @@ class Member extends DestructObject {
 
     // Shallow Copy RoleIds befor overwrite
     const roleIds = member.roles.slice(0);
-    console.log(roleIds)
 
     this.roles = client.roles.forgeManager({}, {
       guild: options.guild,
@@ -118,7 +117,6 @@ module.exports = Member;
 
 function getRoles(client, roles, guild) {
   if (!roles) return new Collection();
-  console.log(typeof roles, roles)
   const memberRoles = new Collection();
   roles.forEach((m) => {
     const role = client.roles.forge({ id: m }, { guild: guild });
