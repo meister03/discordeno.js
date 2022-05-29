@@ -25,7 +25,7 @@ class Member extends DestructObject {
     this.user = client.users.forge(member.user);
 
     // Shallow Copy RoleIds befor overwrite
-    const roleIds = member.roles.slice(0);
+    const roleIds = member.roles ? member.roles.slice(0) : undefined;
 
     this.roles = client.roles.forgeManager({}, {
       guild: options.guild,
