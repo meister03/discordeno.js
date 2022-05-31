@@ -45,6 +45,7 @@ class CacheManager {
     bot.gateway.handleDiscordPayload = function (_bot, packet, shardId) {
       //console.log(packet.t);
       if (Actions[packet.t]) Actions[packet.t](bot, packet, shardId);
+      
       handleDiscordPayload(bot, packet, shardId);
     };
 
