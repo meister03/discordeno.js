@@ -18,8 +18,8 @@ class Message extends DestructObject {
   async edit(options) {
     options = transformOptions(options);
 
-    if(options.attachments){
-      options.file = transformAttachments(options.attachments);
+    if(options.files|| options.attachments){
+      options.file = transformAttachments(options.files || options.attachments);
     }
 
     if(options.embeds){
