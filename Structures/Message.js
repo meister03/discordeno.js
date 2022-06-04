@@ -34,8 +34,8 @@ class Message extends DestructObject {
   async reply(options = {}) {
     options = transformOptions(options, {content: true});
 
-    if(options.attachments){
-      options.file = transformAttachments(options.attachments);
+    if(options.files || options.attachments){
+      options.file = transformAttachments(options.files || options.attachments);
     }
 
     if (!options.messageReference) {
