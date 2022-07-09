@@ -10,18 +10,18 @@ Discordeno.js is a wrapper around a very scalable library named [Discordeno](htt
 
 It is very noticeable that there are **many breaking changes by djs**. Each version has changes, most of which are very unnecessary.
 
-Also, it's a fact that **updates take a long time**, you can't use new features, which happens more and more since Discord keeps introducing new features
+Also, it's a fact that **updates take a long time**, you can't use new features, which happens more and more since Discord keeps introducing new features.
 
 As example the v13 Modal PR isn't merged yet and its already 1 month, where as discordeno.js had it on the beginning date of the launch.
 
 ### __A migration would require breaking changes too?__
-We built the interface so that it can be used to **switch between different libraries** with very minor changes on Discordeno's side. This allows us to introduce support for other libraries, such as the Raw API
+We built the interface so that it can be used to **switch between different libraries** with very minor changes on Discordeno's side. This allows us to introduce support for other libraries, such as the Raw API.
 
-Of course, a migration would include breaking changes, as we decided to improve the coding experience by simplifying it while incorporating high coding standards
+Of course, a migration would include breaking changes, as we decided to improve the coding experience by simplifying it while incorporating high coding standards.
 
 ~~As of now, the biggest change is that ids use `BigInts` instead of the usual strings. This is because they use less memory. Therefore, depending on the database, you would have to stringfying the id before saving the document~~ The snowflake transformer has been overwritten to use strings instead of BigInts.
 
-**Common changes are listed in the [gist](https://gist.github.com/meister03/2f8697512e039f1081b16d245bbcc6df), which is updated on the fly**
+**Common changes are listed in the [gist](https://gist.github.com/meister03/2f8697512e039f1081b16d245bbcc6df), which is updated on the fly.**
 
 The wrapper supports commonly used functions such as `.send`, `.pin`, `.create`... . There might be a lack of other functions, but this can be easily added via a PR with a very less coding knowledge.
 
@@ -85,11 +85,11 @@ const client = Discord.enableCachePlugin(baseBot, {
     },
     messages: {
         properties: ['id', 'channelId', 'type'],
-        //transformerClass: Discord.Message
+        // transformerClass: Discord.Message
     },
     stageInstances: {
         properties: ['id', 'guildId', 'type'],
-        //transformerClass: Discord.StageInstance
+        // transformerClass: Discord.StageInstance
     },
 });
 Discord.startBot(client);
@@ -121,7 +121,7 @@ const channel = client.channels.forge(ddChannel);
 ```
 ### Message:
 ```js
-const message = client.messages.forge(ddMessage;
+const message = client.messages.forge(ddMessage);
 ```
 
 ### Get raw data of a structure:
@@ -148,7 +148,7 @@ const rawData2 = client.guilds.cache._get(guildId);
 
 # Bugs, glitches and issues
 
-If you encounter any problems feel free to open an issue in our <a href="https://github.com/meister03/discordeno.js/issues">GitHub repository or join the Discord server.</a>
+If you encounter any problems feel free to open an issue in our [GitHub repository or join the Discord server](https://github.com/meister03/discordeno.js/issues).
 
 # Credits
 
