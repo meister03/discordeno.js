@@ -111,7 +111,7 @@ class Channel extends DestructObject {
   get permissionOverwrites() {
     const cache = new Collection();
 
-    this._permissionOverwrites.forEach(x => {
+    this._permissionOverwrites?.forEach(x => {
       let [type, id, allow, deny] = separateOverwrites(x);
 
       if (allow !== undefined) allow = new Permissions(allow).toArray();
