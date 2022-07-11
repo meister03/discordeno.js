@@ -24,6 +24,11 @@ module.exports = {
         }
     },
 
+    shardIdForGuildId(guildId, totalShards = 1) {
+        const shard = Number(BigInt(guildId) >> 22n) % totalShards;
+        return shard;
+    },
+
     convertColor(color) {
         if (typeof color === 'string') {
             if (color === 'DEFAULT') return 0;

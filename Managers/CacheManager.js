@@ -13,6 +13,7 @@ const InteractionManager = require("./InteractionManager");
 
 ///Structures
 const Collection = require("../Structures/CacheCollection");
+const BaseCollection = require("../Structures/Collection");
 const Guild = require("../Structures/Guild");
 const User = require("../Structures/User");
 const Emoji = require("../Structures/Emoji");
@@ -32,7 +33,7 @@ class CacheManager {
  */
   static overwriteHandlers(bot) {
     const { guild, user, member, channel, message, role, emoji, embed } = bot.transformers;
-    const { handleDiscordPayload } = bot.gateway;
+    const  { fetchMembers } = bot.helpers;
 
     bot.transformers.snowflake = function (id) {
       return id;
@@ -42,11 +43,8 @@ class CacheManager {
       return id;
     }
 
-    bot.gateway.handleDiscordPayload = function (_bot, packet, shardId) {
-      //console.log(packet.t);
+    bot.events.raw = function (_bot, packet, shardId) {
       if (Actions[packet.t]) Actions[packet.t](bot, packet, shardId);
-      
-      handleDiscordPayload(bot, packet, shardId);
     };
 
     bot.transformers.guild = function (_, payload) {
@@ -157,6 +155,14 @@ class CacheManager {
       return result;
     }
 
+    // Overwrite Helpers
+    bot.helpers.fetchMembers = async function(guildId, shardId, options){
+      const promise = await fetchMembers(guildId, shardId, options);
+      const members = bot.members.chunkCache.get(guildId) || [];
+      bot.members.chunkCache.delete(guildId)      
+      return members;
+    }
+
     return bot;
   }
 
@@ -227,6 +233,9 @@ class CacheManager {
     const memberOptions = createOptions(client, options.members, Member);
     client.members = new MemberManager(client);
     client.members.cache = new Collection(memberOptions);
+
+    ///Chunk cache
+    client.members.chunkCache = new BaseCollection();
 
     client.interactions = new InteractionManager(client);
 
