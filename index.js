@@ -38,4 +38,5 @@ module.exports = {
   ///Util:
   Collector: require("./Util/Collectors"),
   ComponentOptions: require("./Util/ComponentOptions"),
+  Constants: require("./Util/Constants"),
 };
