@@ -28,7 +28,7 @@ class Member extends DestructObject {
     const roleIds = member.roles ? member.roles.slice(0) : undefined;
 
     this.roles = client.roles.forgeManager({}, {
-      guild: options.guild,
+      guild: this.guild,
       member: this,
       roles: getRoles(client, roleIds, this.guild),
     });
