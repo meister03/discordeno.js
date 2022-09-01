@@ -303,9 +303,11 @@ class CloneCollection extends BaseCollection {
   }
 
   values(options = {}) {
+    let fn = (x) => this.cache._get(this.createKey(x), { transformedKey: true, raw: true });
+    if(options.raw === false) fn = (x) => this.cache.get(this.createKey(x)); 
     const values = new Map(
       [...super.keys()]
-      .map((x) => this.cache._get(this.createKey(x), { transformedKey: true, raw: true }))
+      .map(fn)
       .filter(x => x)
       .map(
         (x) => [x.id, x],
@@ -328,8 +330,16 @@ class CloneCollection extends BaseCollection {
   }
 
   map(fn) {
-    return [...this.values()].map(fn);
+    return [...this.values({raw: false})].map(fn);
   }
+
+  find(fn) {
+    return [...this.values({raw: false})].find(fn);
+  }
+
+  /* filter(fn) {
+    return [...this.values({raw: false})].filter(fn);
+  } */
 
   clear() {
     return [...this.keys()].forEach((x) => this.delete(x));
@@ -346,7 +356,6 @@ class CloneCollection extends BaseCollection {
     Object.keys(value).forEach((k) => {
       if (value[k]) oldValue[k] = value[k];
     });
-    if(oldValue.user) delete oldValue.user;
     return this.set(key, oldValue);
   }
 }

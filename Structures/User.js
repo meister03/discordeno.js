@@ -18,7 +18,7 @@ class User extends DestructObject {
 
   avatarURL(options = {}) {
     const { format, size } = options;
-    return this.client.helpers.avatarURL(this.id, this.discriminator, { avatar: this.avatar, format, size });
+    return this.client.helpers.getAvatarURL(this.id, this.discriminator, { avatar: this.avatar, format, size });
   }
 
   async send(options = {}) {

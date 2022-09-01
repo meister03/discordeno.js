@@ -13,7 +13,7 @@ class Webhook extends DestructObject {
 
     const id = options.id || this.id;
     const token = options.token || this.token;
-    const message = await this.client.helpers.sendWebhook(id,token, options);
+    const message = await this.client.helpers.sendWebhookMessage(id,token, options);
     return this.client.messages ? this.client.messages.forge(message) : message;
   }
 

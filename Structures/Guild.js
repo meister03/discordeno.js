@@ -63,12 +63,12 @@ class Guild extends DestructObject {
     if(!options.raw) return super.toJSON();
     const data = {
       ...super.toJSON(),
-      roles: [...this.roles.cache.values()],
-      channels: [...this.channels.cache.values()],
-      members: [...this.members.cache.values()],
-      emojis: [...this.emojis.cache.values()],
+      roles: [...this.roles.cache.values({ raw: true })],
+      channels: [...this.channels.cache.values({ raw: true })],
+      members: [...this.members.cache.values({ raw: true })],
+      emojis: [...this.emojis.cache.values({ raw: true })],
     }
-    if(this.stageInstances) data.stageInstances = this.stageInstances.values();
+    if(this.stageInstances) data.stageInstances = this.stageInstances.values({ raw: true });
     return data;
   }
 

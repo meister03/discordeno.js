@@ -76,11 +76,11 @@ class RoleManager {
 
   get highest() {
     if(!this.cache) return null;
-    return [...this.cache.values()].map(r => r).sort((a, b) => b.position - a.position)?.[0] || {position: 0};
+    return [...this.cache.values({ raw: true })].map(r => r).sort((a, b) => b.position - a.position)?.[0] || {position: 0};
   }
 
   get premiumSubscriberRole(){
-    return [...this.cache.values()].filter(x => x.toggles?.premiumSubscriber)[0];
+    return [...this.cache.values({ raw: true })].filter(x => x.toggles?.premiumSubscriber)[0];
   }
 }
 module.exports = RoleManager;

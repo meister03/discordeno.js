@@ -32,7 +32,6 @@ function GUILD_MEMBERS_CHUNK(bot, packet, shardId) {
   const guild = bot.guilds.cache.base({ id: packet.d.guild_id });
   guild.members = packet.d.members.map((x) => bot.transformers.member(bot, x, packet.d.guild_id, bot.transformers.snowflake(x.user.id)));
 
-
   // Resolve later with members
   const chunkedMembers = bot.members.chunkCache.get(packet.d.guild_id) || [];
   chunkedMembers.push(...guild.members);

@@ -4,9 +4,6 @@
   "description": "A wrapper around Discordeno that comes with a Djs-like interface and a lot of other features.",
   "main": "index.js",
   "types": "./typings.d.ts",
-  "dependencies": {
-    "discordeno": "github:meister03/discordeno-dev"
-  },
   "script": {},
   "repository": {
     "type": "git",
@@ -33,5 +30,8 @@
   "devDependencies": {
     "clean-jsdoc-theme": "^3.3.4",
     "jsdoc": "^3.6.10"
+  },
+  "dependencies": {
+    "discordeno": "^13.0.0"
   }
 }

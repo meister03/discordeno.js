@@ -16,7 +16,6 @@ class Members {
 
   forge(data = {}, options = {}) {
     data = transformOptions(data);
-
     if (options.guild && data.id) {
       if (options.guild.members.cache?.has(data.id)) {
         const user = this.client.users.cache._get(data.id);

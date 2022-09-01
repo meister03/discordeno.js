@@ -135,9 +135,6 @@ class CacheManager {
       const guild = bot.guilds.cache.base({ id: guildId });
       guild.members = [result];
       bot.guilds.cache.patch(guild.id, guild);
-      if (payload.user) {
-        result.user = bot.transformers.user(bot, payload.user);
-      }
       return result;
     }
 
