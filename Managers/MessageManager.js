@@ -49,7 +49,7 @@ class MessageManager {
     return this.client.helpers.getMessages(channelId, options).then(msgs => {
       const messages = new Collection();
       for (const msg of msgs) {
-        messages.set(msg.id, this.forge(msg, { guild: this.guild, channel: this.channel }));
+        messages.set(msg[0], this.forge(msg[1], { guild: this.guild, channel: this.channel }));
       }
       return messages;
     })
